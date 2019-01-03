@@ -13,8 +13,10 @@
  *
  */
 
+#include <MultiStepper.h>
+#include <AccelStepper.h>
 #include <Wire.h>
-#include <FingerLib.h>
+#include "FingerLib.h"
 
 #include "Globals.h"
 
@@ -73,5 +75,3 @@ void loop()
 	Watchdog.reset();
 #endif
 }
-
-

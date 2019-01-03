@@ -231,6 +231,31 @@ void initFingerPins(void)
 		finger[fingerOrder[1]].attach(4, 8, A2, A8, fingerInv[1]);		// M3
 		finger[fingerOrder[0]].attach(0, 9, A3, A7, fingerInv[0]);		// M4
 	}
+#elif defined(ADAFRUIT_FEATHER_M0)
+	// Allow motor order to be reversed for the new Brunel design.
+	static const int fingerOrderSets[][4] = { { 1,2,0,3 }, { 3,0,2,1 } };			// order of finger connectors for Brunel V1 & V2 (M1, M2, M3, M4)
+	const int* fingerOrder = fingerOrderSets[(BRUNEL_VER == 1) ? 0 : 1];			// point to one of the finger orders
+
+	static const int fingerInvSets[][4] = { {true, true, false, true }, {true, false, true, true} };	// set fingers to be inverted for Brunel V1 & V2
+	const int* fingerInv = fingerInvSets[(BRUNEL_VER == 1) ? 0 : 1];				// point to one of the finger orders
+
+	// attach the finger pins
+	if (settings.handType == HAND_TYPE_RIGHT)
+	{
+		finger[fingerOrder[0]].attach(1, 2, A0, A6, fingerInv[0]);		// M1     
+		finger[fingerOrder[1]].attach(7, 5, A1, A5, fingerInv[1]);		// M2
+		finger[fingerOrder[2]].attach(4, 8, A2, A4, fingerInv[2]);		// M3
+		finger[fingerOrder[3]].attach(0, 9, A3, A7, fingerInv[3]);		// M4
+
+	}
+	else if (settings.handType == HAND_TYPE_LEFT)
+	{
+		finger[fingerOrder[3]].attach(1, 2, A0, A6, fingerInv[3]);		// M1     
+		finger[fingerOrder[2]].attach(7, 5, A1, A5, fingerInv[2]);		// M2
+		finger[fingerOrder[1]].attach(4, 8, A2, A4, fingerInv[1]);		// M3
+		finger[fingerOrder[0]].attach(0, 9, A3, A7, fingerInv[0]);		// M4
+	}
+
 #else
 #error "You will need to enter the correct pins for the finger motor and position feedback"
 #endif

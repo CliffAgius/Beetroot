@@ -73,7 +73,7 @@ int convertFromCSV(char *inString, int *valArray, int len)
 
 
 
-//// read the CPU temperature, in °C (inaccurate)
+//// read the CPU temperature, in Â°C (inaccurate)
 //float readCPUTemp(void)
 //{
 //	float deltaT = CPU_TEMP_TMAX - CPU_TEMP_TMIN;

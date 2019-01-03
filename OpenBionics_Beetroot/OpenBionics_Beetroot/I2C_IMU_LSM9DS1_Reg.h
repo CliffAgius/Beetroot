@@ -178,27 +178,27 @@ typedef enum _MagODR
 // Accel scale
 typedef enum _AccelScale
 {
-	ACCEL_SCALE_2 = 0x00,		// ±2g
-	ACCEL_SCALE_16 = 0x01,		// ±16g
-	ACCEL_SCALE_4 = 0x02,		// ±4g
-	ACCEL_SCALE_8 = 0x03,		// ±8g
+	ACCEL_SCALE_2 = 0x00,		// Â±2g
+	ACCEL_SCALE_16 = 0x01,		// Â±16g
+	ACCEL_SCALE_4 = 0x02,		// Â±4g
+	ACCEL_SCALE_8 = 0x03,		// Â±8g
 } AccelScale;
 
 // Gyro scale
 typedef enum _GyroScale
 {
-	GYRO_SCALE_245 = 0x00,		// ±245dps
-	GYRO_SCALE_500 = 0x01,		// ±500dps
-	GYRO_SCALE_2000 = 0x02		// ±2000dps
+	GYRO_SCALE_245 = 0x00,		// Â±245dps
+	GYRO_SCALE_500 = 0x01,		// Â±500dps
+	GYRO_SCALE_2000 = 0x02		// Â±2000dps
 } GyroScale;
 
 // Magnetometer scale
 typedef enum _MagScale
 {
-	MAG_SCALE_4 = 0x00,			// ±4Gs
-	MAG_SCALE_8 = 0x01,			// ±8Gs
-	MAG_SCALE_12 = 0x02,		// ±12Gs
-	MAG_SCALE_16 = 0x03,		// ±16Gs
+	MAG_SCALE_4 = 0x00,			// Â±4Gs
+	MAG_SCALE_8 = 0x01,			// Â±8Gs
+	MAG_SCALE_12 = 0x02,		// Â±12Gs
+	MAG_SCALE_16 = 0x03,		// Â±16Gs
 } MagScale;
 
 

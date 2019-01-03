@@ -50,7 +50,7 @@ template <class T> int EEPROM_readStruct(int ee, const T& value)
 /* The app uses only the MYSERIAL_funcion macros so that all accesses can be
  * intercepted here to avoid blocking behaviour. */
 
-#if defined(ARDUINO_AVR_MEGA2560) || defined(ARDUINO_AVR_UNO)
+#if defined(ARDUINO_AVR_MEGA2560) || defined(ARDUINO_AVR_UNO) || defined(ADAFRUIT_FEATHER_M0)
 #define MYSERIAL Serial
 #define SERIALNONBLOCKCHECK			(1)
 #elif defined(ARDUINO_ARCH_SAMD)

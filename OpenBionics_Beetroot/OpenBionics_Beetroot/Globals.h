@@ -46,8 +46,8 @@
 #define IS_BETWEEN(x,a,b)	(((((x)>=(a))&&((x)<=(b)))||(((x)>=(b))&&((x)<=(a))))?(1):(0))		// check if value x is equal to or between values a and b
 
 ////////////////////////////////////// TEMP SETTINGS ////////////////////////////////////////
-#define CPU_TEMP_WARNING	45.0	// °C
-#define CPU_TEMP_MAX		50.0	// °C			
+#define CPU_TEMP_WARNING	45.0	// Â°C
+#define CPU_TEMP_MAX		50.0	// Â°C			
 
 ///////////////////////////////////// FINGER SETTINGS ///////////////////////////////////////
 #define NUM_FINGERS			4		// actuated fingers

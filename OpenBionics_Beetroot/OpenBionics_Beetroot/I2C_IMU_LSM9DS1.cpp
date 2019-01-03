@@ -29,7 +29,7 @@
 float IMU_ACCEL_SENSITIVITY[4] = { 0.000061, 0.000732, 0.000122, 0.000244 };	// g/LSB
 float IMU_GYRO_SENSITIVITY[3] = { 0.00875, 0.0175, 0.07 };						// dps
 float IMU_MAG_SENSITIVITY[4] = { 0.00014, 0.00029, 0.00043, 0.00058 };			// gauss/LSB
-float IMU_TEMP_SENSITIVITY = 16;												// LSB/°C
+float IMU_TEMP_SENSITIVITY = 16;												// LSB/Â°C
 
 ////////////////////////////// Constructors/Destructors //////////////////////////////
 LSM9DS1::LSM9DS1()

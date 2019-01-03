@@ -1715,16 +1715,3 @@ uint8_t Adafruit_NeoPixel::getBrightness(void) const {
 void Adafruit_NeoPixel::clear() {
   memset(pixels, 0, numBytes);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

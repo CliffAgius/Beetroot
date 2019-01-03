@@ -828,4 +828,3 @@ void printCurrentMode(void)
 
 	MYSERIAL_PRINT_PGM("\n");
 }
-
