@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenBionics_Beetroot", "OpenBionics_Beetroot\OpenBionics_Beetroot.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FingerLib", "..\..\..\..\Arduino\libraries\FingerLib\FingerLib.vcxitems", "{6ECC92B5-E346-4AD9-B001-3A745D89F48A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AccelStepper", "..\..\..\..\Arduino\libraries\AccelStepper\AccelStepper.vcxitems", "{5AC42F27-6938-4CA7-AC6D-BA6F3D0A7330}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +22,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {72B9F032-9332-4AA0-80AB-00A32C61DAA8}
 	EndGlobalSection
 EndGlobal

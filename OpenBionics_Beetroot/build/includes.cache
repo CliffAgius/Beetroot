@@ -1,0 +1,162 @@
+[
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "C:\\Users\\cliff\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.2.9\\cores\\arduino"
+  },
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "C:\\Users\\cliff\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.2.9\\variants\\feather_m0"
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\OpenBionics_Beetroot.ino.cpp",
+    "Include": "MultiStepper.h",
+    "Includepath": "C:\\CA-Software\\Arduino\\libraries\\AccelStepper\\src"
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\OpenBionics_Beetroot.ino.cpp",
+    "Include": "Wire.h",
+    "Includepath": "C:\\Users\\cliff\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.2.9\\libraries\\Wire"
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\OpenBionics_Beetroot.ino.cpp",
+    "Include": "FingerLib.h",
+    "Includepath": "C:\\CA-Software\\Arduino\\libraries\\FingerLib\\src"
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\OpenBionics_Beetroot.ino.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\Adafruit_NeoPixel.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\Demo.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\EMGControl.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\ErrorHandling.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\Globals.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\Grips.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\Grips_Default.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\HANDle.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\I2C_EEPROM.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\I2C_IMU_LSM9DS1.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\Initialisation.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\LED.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\ROS.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\SerialControl.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\TimerManagement.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\Utils.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "c:\\CA-Software\\Open Source Projects\\OpenBionics Hand\\Beetroot\\OpenBionics_Beetroot\\build\\sketch\\Watchdog.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\CA-Software\\Arduino\\libraries\\AccelStepper\\src\\AccelStepper.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\CA-Software\\Arduino\\libraries\\AccelStepper\\src\\MultiStepper.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\Users\\cliff\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.2.9\\libraries\\Wire\\Wire.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\CA-Software\\Arduino\\libraries\\FingerLib\\src\\FingerLib.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\CA-Software\\Arduino\\libraries\\FingerLib\\src\\current_sense\\samd_CurrentSense.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\CA-Software\\Arduino\\libraries\\FingerLib\\src\\pid\\pid_controller.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\CA-Software\\Arduino\\libraries\\FingerLib\\src\\timers\\avr_FingerTimer.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\CA-Software\\Arduino\\libraries\\FingerLib\\src\\timers\\samd_FingerTimer.cpp",
+    "Include": "",
+    "Includepath": ""
+  },
+  {
+    "Sourcefile": "C:\\CA-Software\\Arduino\\libraries\\FingerLib\\src\\timers\\timer_and_delay.cpp",
+    "Include": "",
+    "Includepath": ""
+  }
+]

@@ -47,8 +47,10 @@ void loop()
 	ros_run();
 #endif
 
+#if !defined(ADAFRUIT_FEATHER_M0)	//Cant check the system temp on the Feather as there is no IMU fitted...
 	// monitor system temp
 	systemMonitor();
+#endif
 
 	// if demo mode is enabled, run demo mode
 	if (DEMO.enabled())
