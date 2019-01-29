@@ -16,10 +16,17 @@
 #include "Globals.h"
 #include "ErrorHandling.h"
 
-#include "I2C_EEPROM.h"
+
+
 #include "LED.h"
 #include "Watchdog.h"
 
+//If the Adafruit board is used then need to use the FlashAsEEPROM as it has no EEPROM so it needs to be faked...
+#ifdef ADAFRUIT_FEATHER_M0
+	#include <FlashAsEEPROM.h>
+#else
+	#include "I2C_EEPROM.h"
+#endif // ADAFRUIT_FEATHER_M0
 
 ////////////////////////////// Constructors/Destructors //////////////////////////////
 ERROR_HANDLING::ERROR_HANDLING()
@@ -27,11 +34,11 @@ ERROR_HANDLING::ERROR_HANDLING()
 	// TODO: store all error descriptions is PROGMEM
 
 	// NO ERROR
-	_errorList[ERROR_NONE].num = 0;
-	_errorList[ERROR_NONE].type = ERROR_NONE;
-	_errorList[ERROR_NONE].level = LEVEL_NONE;
-	_errorList[ERROR_NONE].LED.c1 = LED_GREEN_DIM;
-	_errorList[ERROR_NONE].LED.blinkFreq = 0.5;				// 0.5Hz
+	_errorList[NO_ERROR].num = 0;
+	_errorList[NO_ERROR].type = NO_ERROR;
+	_errorList[NO_ERROR].level = LEVEL_NONE;
+	_errorList[NO_ERROR].LED.c1 = LED_GREEN_DIM;
+	_errorList[NO_ERROR].LED.blinkFreq = 0.5;				// 0.5Hz
 
 	// Error 001 - UNKNOWN ERROR
 	_errorList[ERROR_UNKNOWN].num = 1;
@@ -104,10 +111,10 @@ ERROR_HANDLING::ERROR_HANDLING()
 // initialise error handling and display any stored errors
 void ERROR_HANDLING::begin(void)
 {
-	enableLEDcontrol(true);					// enable error handling to control the LED
+	//enableLEDcontrol(true);					// enable error handling to control the LED
 
-	_currError = &_errorList[ERROR_NONE];	// start pointer with no error
-	ERROR.set(ERROR_NONE);					// start with no errors (LED, etc)
+	_currError = &_errorList[NO_ERROR];	// start pointer with no error
+	ERROR.set(NO_ERROR);					// start with no errors (LED, etc)
 }
 
 // set an error state and perform the appropriate actions
@@ -120,7 +127,7 @@ void ERROR_HANDLING::set(ErrorType error)
 	}
 
 	// if the new error has a lower severity/level than the current level, and error isn't being cleared 
-	if ((_errorList[error].level <= _currError->level) && (error != ERROR_NONE))
+	if ((_errorList[error].level <= _currError->level) && (error != NO_ERROR))
 	{
 		return;						// do not run the lower error level
 	}
@@ -135,26 +142,26 @@ void ERROR_HANDLING::set(ErrorType error)
 	//storeError(_currError->type);			// WARNING. THIS CAUSES THE PROGRAM TO HANG
 
 	// if error handling has control of the NeoPixel and there is a colour to show
-	if (_ctrlLED && (_currError->LED.c1 != NO_LED_COLOUR))
-	{
-		if (_currError->LED.c2 == NO_LED_COLOUR)
-		{
-			_currError->LED.c2 = LED_BLACK;
-		}
+	//if (_ctrlLED && (_currError->LED.c1 != NO_LED_COLOUR))
+	//{
+	//	if (_currError->LED.c2 == NO_LED_COLOUR)
+	//	{
+	//		_currError->LED.c2 = LED_BLACK;
+	//	}
 
-		// if the error is of a high enough severity, override the LED brightness
-		if (_currError->level >= LEVEL_ERROR)
-		{
-			_tempLvlLED = LED.getBrightness();		// save the current LED brightness level
-			LED.setBrightness(OVRIDE_LVL_LED);
-		}
+	//	// if the error is of a high enough severity, override the LED brightness
+	//	if (_currError->level >= LEVEL_ERROR)
+	//	{
+	//		_tempLvlLED = LED.getBrightness();		// save the current LED brightness level
+	//		LED.setBrightness(OVRIDE_LVL_LED);
+	//	}
 
-		LED.setMode(LED_MODE_FADE);
-		LED.setColour(_currError->LED.c1, _currError->LED.c2);	// set LED flashing colours
-		LED.setDuration(0);										// clear duration, as the ERROR.run() will clear the LED after a duration
-		LED.setFreq(_currError->LED.blinkFreq);					// set LED to be solid or to fade
-		LED.show();												// show on the LED
-	}
+	//	LED.setMode(LED_MODE_FADE);
+	//	LED.setColour(_currError->LED.c1, _currError->LED.c2);	// set LED flashing colours
+	//	LED.setDuration(0);										// clear duration, as the ERROR.run() will clear the LED after a duration
+	//	LED.setFreq(_currError->LED.blinkFreq);					// set LED to be solid or to fade
+	//	LED.show();												// show on the LED
+	//}
 
 	if (_currError->duration)								// if error has a duration 
 	{
@@ -162,7 +169,7 @@ void ERROR_HANDLING::set(ErrorType error)
 	}
 
 	// print the error description
-	if (error != ERROR_NONE)
+	if (error != NO_ERROR)
 	{
 		printErrorDescr(_currError);
 	}
@@ -219,7 +226,7 @@ bool ERROR_HANDLING::clear(ErrorType error)
 			// NOTE. THIS MAY RESET THE BRIGHTNESS
 		}
 
-		set(ERROR_NONE);	// set the error to none (moved to LED index 2)
+		set(NO_ERROR);	// set the error to none (moved to LED index 2)
 
 							//clear();
 		return true;
@@ -278,18 +285,27 @@ void ERROR_HANDLING::printCurrent(bool nl)
 // check EEPROM for previous errors
 void ERROR_HANDLING::checkPrevError(void)
 {
+	uint8_t pingOk = false;
+
+#ifdef ADAFRUIT_FEATHER_M0
+	pingOk = true;
+	MYSERIAL_PRINTLN("******* ADAFRUIT FlashAsEEPROM in use *******");
+#else
+	pingOk = EEPROM.ping();
+#endif // ADAFRUIT_FEATHER_M0
+
 	// if EEPROM is available, check for previous errors
-	if (EEPROM.ping())
+	if (pingOk)
 	{
 		ErrorState error = loadError();		// load the previously saved error
 
-		if (error.type != ERROR_NONE)			// if there was an error
+		if (error.type != NO_ERROR)			// if there was an error
 		{
 			MYSERIAL_PRINT_PGM("Previous Error State - ");
 			printErrorDescr(&error);			// print the error description
 			MYSERIAL_PRINTLN_PGM("Error Cleared\n");
 
-			storeError(ERROR_NONE);			// clear the stored error
+			storeError(NO_ERROR);			// clear the stored error
 		}
 	}
 	// if EEPROM is not responding, set an error state
@@ -310,7 +326,7 @@ ErrorState ERROR_HANDLING::loadError(void)
 	ErrorType errorNum = (ErrorType)EEPROM.read(EEPROM_LOC_STORED_ERROR);
 	
 	if (!IS_BETWEEN(errorNum, 0, MAX_NUM_ERRORS))
-		errorNum = ERROR_NONE;
+		errorNum = NO_ERROR;
 
 	return _errorList[errorNum];
 }

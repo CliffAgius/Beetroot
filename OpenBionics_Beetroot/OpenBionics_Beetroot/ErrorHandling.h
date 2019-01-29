@@ -27,6 +27,12 @@
 #define WARNING_DURATION			5000		// number of ms to display warning status on the LED
 
 // EEPROM
+#ifdef ADAFRUIT_FEATHER_M0
+	#define EEPROM_LOC_STORED_ERROR		8		// location within EEPROM to store the last error state
+#else
+	#define EEPROM_LOC_STORED_ERROR		1023		// location within EEPROM to store the last error state
+#endif // ADAFRUIT_FEATHER_M0
+
 #define EEPROM_LOC_STORED_ERROR		1023		// location within EEPROM to store the last error state
 
 // LED
@@ -35,7 +41,7 @@
 
 typedef enum _ErrorType
 {
-	ERROR_NONE = 0,			// 0 no error
+	NO_ERROR = 0,			// 0 no error
 	ERROR_UNKNOWN,			// 1 unknown error occurred
 	ERROR_INIT,				// 2 in this state during initialisation
 	ERROR_EEPROM_INIT,		// 3 EEPROM failed to respond during getBoardVersion()

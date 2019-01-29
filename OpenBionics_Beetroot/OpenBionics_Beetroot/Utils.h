@@ -17,7 +17,10 @@
 #define UTILS_H_
 
 #include "Globals.h"
-#include "I2C_EEPROM.h"
+#ifndef ADAFRUIT_FEATHER_M0
+	#include "I2C_EEPROM.h"
+#endif // !ADAFRUIT_FEATHER_M0
+
 
 ///////////////////////////////////// EEPROM WRITE STRUCT ///////////////////////////////////////
 // write any data type to EEPROM
@@ -25,8 +28,10 @@ template <class T> int EEPROM_writeStruct(int ee, const T& value)
 {
 	const byte* p = (const byte*)(const void*)&value;
 
+#ifndef ADAFRUIT_FEATHER_M0
 	EEPROM.writeMany(ee, (uint8_t*)p, sizeof(value));
 	//EEPROM.writeMany(ee, (int*)p, sizeof(value));
+#endif // !ADAFRUIT_FEATHER_M0
 
 	return true;
 }
@@ -36,8 +41,10 @@ template <class T> int EEPROM_readStruct(int ee, const T& value)
 {
 	byte* p = (byte*)(void*)&value;
 
+#ifndef ADAFRUIT_FEATHER_M0
 	EEPROM.readMany(ee, (uint8_t*)p, sizeof(value));
 	//EEPROM.readMany(ee, (int*)p, sizeof(value));
+#endif // !ADAFRUIT_FEATHER_M0
 
 	return true;
 }
@@ -50,13 +57,16 @@ template <class T> int EEPROM_readStruct(int ee, const T& value)
 /* The app uses only the MYSERIAL_funcion macros so that all accesses can be
  * intercepted here to avoid blocking behaviour. */
 
-#if defined(ARDUINO_AVR_MEGA2560) || defined(ARDUINO_AVR_UNO) || defined(ADAFRUIT_FEATHER_M0)
+#if defined(ARDUINO_AVR_MEGA2560) || defined(ARDUINO_AVR_UNO) 
 #define MYSERIAL Serial
 #define SERIALNONBLOCKCHECK			(1)
-#elif defined(ARDUINO_ARCH_SAMD)
-#if defined(SERIAL_USB_CONTROL)
+#elif defined(ARDUINO_ARCH_SAMD) 
+#if defined(SERIAL_USB_CONTROL) && !defined(ADAFRUIT_FEATHER_M0)
 #define MYSERIAL SerialUSB
 #define SERIALNONBLOCKCHECK			(MYSERIAL.dtr())
+#elif defined(ADAFRUIT_FEATHER_M0)								//Config the Serial for the Adafruit Board which uses the USB port...
+#define MYSERIAL Serial
+#define SERIALNONBLOCKCHECK			(1)
 #elif defined(SERIAL_PINS_CONTROL)
 #define MYSERIAL SerialPins
 #define SERIALNONBLOCKCHECK			(1)

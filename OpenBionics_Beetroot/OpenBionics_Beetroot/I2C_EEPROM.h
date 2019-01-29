@@ -59,6 +59,12 @@ class I2C_EEPROM
 
 };
 
-extern I2C_EEPROM EEPROM;
+
+//If FEATHER_Mo is in use then make sure this Class is not used by stopping the Extern of the EEPROM keyword, so that
+//the one in the FlashAsEEPROM is used...
+#ifndef ADAFRUIT_FEATHER_M0
+	extern I2C_EEPROM EEPROM;
+#endif // !ADAFRUIT_FEATHER_M0
+
 
 #endif // I2C_EEPROM_H_

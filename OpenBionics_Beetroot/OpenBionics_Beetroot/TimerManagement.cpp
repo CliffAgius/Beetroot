@@ -46,7 +46,7 @@ void milliSecInterrupt(void)
 	ERROR.run();
 
 	// run LED class to manage blinking and fading
-	LED.run();
+	//LED.run();
 }
 
 // return number of milliseconds since power on

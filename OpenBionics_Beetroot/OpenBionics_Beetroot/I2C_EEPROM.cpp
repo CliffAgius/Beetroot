@@ -1,24 +1,21 @@
- /*	Open Bionics - Beetroot
- *	Author - Olly McBride
- *	Date - October 2016
- *
- *	This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
- *	To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
- *
- *	Website - http://www.openbionics.com/
- *	GitHub - https://github.com/Open-Bionics
- *	Email - ollymcbride@openbionics.com
- *
- *	I2C_EEPROM.cpp
- *
- */
+/*	Open Bionics - Beetroot
+*	Author - Olly McBride
+*	Date - October 2016
+*
+*	This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License.
+*	To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.
+*
+*	Website - http://www.openbionics.com/
+*	GitHub - https://github.com/Open-Bionics
+*	Email - ollymcbride@openbionics.com
+*
+*	I2C_EEPROM.cpp
+*
+*/
 
 // 24AA08 8Kb (1KB) I2C EEPROM
-
 #include <Wire.h>
-
 #include "I2C_EEPROM.h"
-
 
 ////////////////////////////// Public Methods //////////////////////////////
 I2C_EEPROM::I2C_EEPROM()
@@ -71,7 +68,7 @@ int I2C_EEPROM::read(int loc)
 	Wire.endTransmission(RESTART);
 	Wire.requestFrom((uint8_t)addr, (uint8_t)1);
 	rxByte = Wire.read();
-	
+
 	return rxByte;
 }
 
@@ -111,7 +108,7 @@ int I2C_EEPROM::readMany(int loc, uint8_t* val, int totalToRead)
 		for (int i = 0; i < chunkSize; i++)
 		{
 			val[valIndex] = Wire.read();
-			valIndex++;			
+			valIndex++;
 		}
 		Wire.endTransmission();
 
@@ -282,7 +279,7 @@ int I2C_EEPROM::generateChunkSize(int currValLoc, int size)
 #elif defined(ARDUINO_ARCH_SAMD)
 	const uint16_t  I2C_buff_size = SERIAL_BUFFER_SIZE - 1;		// buffer size = buffer + I2C_Addr_byte
 #endif
-	
+
 	// constrain the chunk size to be <= I2C_buffer_size
 	int chunkSize = constrain(size, 0, I2C_buff_size);
 
@@ -319,6 +316,8 @@ int I2C_EEPROM::generateChunkSize(int currValLoc, int size)
 	return chunkSize;
 }
 
+//Don't define the EEPROM if using the Adafruit as it has no EEPROM so using the FalshAsEEPROM...
+#ifndef ADAFRUIT_FEATHER_M0
+	I2C_EEPROM EEPROM;
+#endif // !ADAFRUIT_FEATHER_M0
 
-
-I2C_EEPROM EEPROM;

@@ -13,13 +13,21 @@
  *
  */
 
-#include <MultiStepper.h>
-#include <AccelStepper.h>
+
+
+#include <SPI.h>
+
+#ifdef ADAFRUIT_FEATHER_M0
+	#include <FlashAsEEPROM.h>
+	#include <Adafruit_ATParser.h>
+	#include <MultiStepper.h>
+	#include <AccelStepper.h>
+#endif // ADAFRUIT_FEATHER_M0
+
+
 #include <Wire.h>
 #include "FingerLib.h"
-
 #include "Globals.h"
-
 #include "Demo.h"							// DEMO
 #include "EMGControl.h"						// EMG
 #include "Grips.h"							// Grip
@@ -28,8 +36,12 @@
 #include "SerialControl.h"					// pollSerial
 #include "Watchdog.h"						// Watchdog
 
+#if defined(ARDUINO_SAMD_ZERO) && defined(SERIAL_PORT_USBVIRTUAL)
+ // Required for Serial on Zero based boards
+#define Serial SERIAL_PORT_USBVIRTUAL
+#endif
 
-void setup() 
+void setup()
 {
 	deviceSetup();							// initialise the board
 
@@ -37,11 +49,11 @@ void setup()
 	{
 		delay(100);							// allow time for serial to connect
 		serial_SerialInstructions();		// print serial instructions
-	}	
+	}
 }
 
 
-void loop() 
+void loop()
 {
 #if defined(USE_ROS)
 	ros_run();
@@ -70,10 +82,11 @@ void loop()
 		HANDle.run();
 	}
 
+
 	// process any received serial characters
 	pollSerial();
 
 #if defined(ARDUINO_ARCH_SAMD)
-	Watchdog.reset();
+	//Watchdog.reset();
 #endif
 }

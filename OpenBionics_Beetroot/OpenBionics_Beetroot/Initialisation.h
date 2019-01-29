@@ -80,7 +80,7 @@ typedef struct _Settings
 
 
 void deviceSetup(void);				// board initialisation sequence
-
+void setupMtrs();					// Set-up the motors with the Adafruit DC Motor feather...
 void initFingerPins(void);			// attach the finger pins for a left/right hand
 void resetToDefaults(void);			// set default settings
 void setModes(void);				// start hand in a particular mode depending on EEPROM settings
@@ -106,6 +106,5 @@ void watchdogCallback(void);		// set the WDT error and shutdown safely
 
 
 extern Settings settings;			// board settings
-
 
 #endif // INITIALISATION_H_
