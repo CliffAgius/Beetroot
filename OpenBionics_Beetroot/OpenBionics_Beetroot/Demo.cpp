@@ -50,12 +50,14 @@ void DEMO_CLASS::run(void)
 			Grip.nextGrip();			// cycle to next grip
 			
 			MYSERIAL_PRINTLN(Grip.getGripName());		// print current grip name
+			BTPrintLn(Grip.getGripName());
 
 			// if the grips have wrapped around to the beginning and is only set to run once
 			if ((Grip.getGrip() == 0) && (_mode == DEMO_ONCE))
 			{
 				_mode = DEMO_STOP;		// disable demo mode
 				MYSERIAL_PRINTLN_PGM("End of Demo Mode");
+				BTPrintLn("End of Demo Mode");
 				return;
 			}
 		}
@@ -115,6 +117,7 @@ void DEMO_CLASS::toggleOnce(void)
 	{
 		_mode = DEMO_ONCE;
 		MYSERIAL_PRINTLN(Grip.getGripName());		// print current grip name
+		BTPrintLn(Grip.getGripName());
 	}
 	else
 	{
@@ -129,6 +132,7 @@ void DEMO_CLASS::toggleConstant(void)
 	{
 		_mode = DEMO_CONSTANT;
 		MYSERIAL_PRINTLN(Grip.getGripName());		// print current grip name
+		BTPrintLn(Grip.getGripName());
 	}
 	else
 	{

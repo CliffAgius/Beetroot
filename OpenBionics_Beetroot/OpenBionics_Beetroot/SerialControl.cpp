@@ -24,6 +24,11 @@
 #include "I2C_IMU_LSM9DS1.h"		// IMU
 #include "Initialisation.h"			// settings
 
+#ifdef ADAFRUIT_FEATHER_M0
+	#include "BlueTooth.h"	// Use Bluetooth
+#endif // ADAFRUIT_FEATHER_M0
+
+
 SerialCode serialCodes[NUM_SERIAL_CODES];
 
 char serialBuff[SERIAL_BUFF_SIZE];
@@ -110,6 +115,7 @@ void initSerialCharCodes(void)
 // check and read serial, then perform appropriate actions
 void pollSerial(void)
 {
+	PollBT();
 	// read and store serial chars, return true if end of line char is received
 	if (checkSerial())
 	{
@@ -131,12 +137,20 @@ void pollSerial(void)
 bool checkSerial(void)
 {
 	static uint8_t buffIndex = 0;
+	char rxChar = NULL;
 
 	// if there is data in the serial buffer
 	if (MYSERIAL.available())
 	{
-		char rxChar = MYSERIAL.read();		// store char in temporary variable
+		rxChar = MYSERIAL.read();		// store char in temporary variable
+	}
+	else if (BTinputs[buffIndex] != NULL)
+	{
+		rxChar = BTinputs[buffIndex];
+	}
 
+	if(rxChar != NULL)
+	{
 		// if the received char is an end of line character, reset buffer index and return true to indicate the message is ready to read
 		if ((rxChar == SERIAL_EOL_CHAR_NL) || (rxChar == SERIAL_EOL_CHAR_CR))
 		{
@@ -172,6 +186,7 @@ bool checkSerial(void)
 					MYSERIAL_PRINT_PGM("' (0x");
 					MYSERIAL_PRINT_F((int)rxChar,HEX);
 					MYSERIAL_PRINTLN_PGM(") IS NOT A VALID CHARACTER");
+					BTPrintLn("Warning - That was not a valid Character");
 				}
 
 			}
@@ -227,6 +242,7 @@ void extractCodesFromSerial(void)
 	}
 
 	serialBuff[0] = NULL;			// clear serial buff once all codes have been looked for
+	ClearBTBuffer();				//Clear the BT buffer as well...
 }
 
 // search through serial buffer and look for char code, if found return true and store pointer to loc of char code
@@ -286,6 +302,7 @@ void sendCSV(void)
 	convertToCSV(posArray, NUM_FINGERS, CSVStr);	// convert position array to CSV string
 
 	MYSERIAL_PRINTLN(CSVStr);				// send CSV string over serial
+	BTPrintLn(CSVStr);
 }
 
 // if string contains CSV data, write received positions to the fingers
@@ -302,7 +319,37 @@ void receiveCSV(char *buff)
 	}
 }
 
+void readMuscleADC(void) 
+{
+	int senseArray[NUM_EMG_CHANNELS];
+	char CSVStr[64];
+	int loops = 20;
 
+	while (loops > 0)
+	{
+		analogRead(A4);
+		delay(10);
+		senseArray[0] = analogRead(A4);
+		delay(10);
+		if (NUM_EMG_CHANNELS > 1)
+		{
+			analogRead(A5);
+			delay(10);
+			senseArray[1] = analogRead(A5);
+		}
+
+		MYSERIAL_PRINT(senseArray[0]);
+		MYSERIAL_PRINT(" - ");
+		MYSERIAL_PRINTLN(senseArray[1]);
+		
+		//convertToCSV(senseArray, NUM_EMG_CHANNELS, CSVStr);	// convert position array to CSV string
+
+		//MYSERIAL_PRINTLN(CSVStr);				// send CSV string over serial
+		//BTPrintLn(CSVStr);
+		delay(100);
+		loops--;
+	}
+}
 
 
 // CHAR CODE FUNCTIONS (the following functions are attached to the char codes)
@@ -331,6 +378,8 @@ void serial_AdvancedSettings(int setting)
 		storeSettings();
 		MYSERIAL_PRINT_PGM("Demo mode ");
 		MYSERIAL_PRINTLN(off_on[settings.mode]);
+		BTPrint("Demo Mode ");
+		BTPrintLn(off_on[settings.mode]);
 
 		break;
 
@@ -401,6 +450,9 @@ void serial_AdvancedSettings(int setting)
 		sendCSV();
 		break;
 
+	case 7:			// read Muscle values as CSV.
+		readMuscleADC();
+		break;
 	default:
 		MYSERIAL_PRINTLN_PGM("Advanced Setting Not Valid");
 		break;
@@ -411,6 +463,7 @@ void serial_AdvancedSettings(int setting)
 void serial_ToggleDemoMode(int val)
 {
 	MYSERIAL_PRINTLN_PGM("Demo Mode");
+	BTPrintLn("Demo Mode");
 	DEMO.toggleOnce();
 }
 
@@ -753,13 +806,15 @@ void serial_SerialInstructions(int val)
 	MYSERIAL_PRINT_PGM("\n");
 
 	// MUSCLE CONTROL
-	MYSERIAL_PRINTLN_PGM("Muscle Control (M#, U#, T#, N)");
+	MYSERIAL_PRINTLN_PGM("Muscle Control (M#, U#, T#)");
 	MYSERIAL_PRINTLN_PGM("Command     Description");
 	MYSERIAL_PRINTLN_PGM("M0          Muscle control OFF");
 	MYSERIAL_PRINTLN_PGM("M1          Standard muscle control ON");
 	MYSERIAL_PRINTLN_PGM("M2          Muscle position control ON");
 	MYSERIAL_PRINTLN_PGM("M3          Toggle whether to display SIMPLE muscle readings");
 	MYSERIAL_PRINTLN_PGM("M4          Toggle whether to display DETAILED muscle readings");
+	MYSERIAL_PRINTLN_PGM("T			  Display/Set Hold Time in (ms)");
+	MYSERIAL_PRINTLN_PGM("U           Display/Set Peak Threshold time (ms)");
 	MYSERIAL_PRINT_PGM("\n");
 
 	// ADVANCED SETTINGS
@@ -775,6 +830,7 @@ void serial_SerialInstructions(int val)
 	MYSERIAL_PRINTLN_PGM("A4          Enable/Disable CSV mode (fast control)");
 	MYSERIAL_PRINTLN_PGM("A5          Enable/Disable HANDle mode (Wii Nunchuck)");
 	MYSERIAL_PRINTLN_PGM("A6          Get the position of all fingers as a CSV string");
+	MYSERIAL_PRINTLN_PGM("A7          Get 20 values from the Muscle sensors as a CSV string");
 	MYSERIAL_PRINTLN_PGM("#           Display system diagnostics");
 	MYSERIAL_PRINTLN_PGM("?           Display serial commands list");
 	MYSERIAL_PRINT_PGM("\n");

@@ -54,7 +54,7 @@
 #define SERIAL_CODE_QMARK	15		// Print serial instructions
 
 // CODE VAL CONTRAINTS
-#define NUM_ADV_SETTINGS	6		// number of advanced settings
+#define NUM_ADV_SETTINGS	7		// number of advanced settings
 #define NUM_EMG_MODES		3		// number of EMG modes
 #define NUM_HAND_TYPES		3		// None, Left, Right
 #define LIMIT_FOR_BOOLEAN	1		// either 0 or 1
@@ -87,7 +87,7 @@ void processCodes(void);				// use the extracted codes & values to control the h
 
 void sendCSV(void);						// if CSV mode is enabled, send CSV of all finger positions
 void receiveCSV(char *buff);			// if string contains CSV data, write received positions to the fingers
-
+void readMuscleADC(void);				// Read Muscle ADC values...
 
 
 

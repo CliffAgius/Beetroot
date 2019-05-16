@@ -32,10 +32,10 @@
 
 //If the Adafruit board is used then need to use the FlashAsEEPROM as it has no EEPROM so it needs to be faked...
 #ifdef ADAFRUIT_FEATHER_M0
-	#include "BlueTooth.h"						//Bluetooth.
-	#include <FlashAsEEPROM.h>
+#include "BlueTooth.h"						//Bluetooth.
+#include <FlashAsEEPROM.h>
 #else
-	#include "I2C_EEPROM.h"
+#include "I2C_EEPROM.h"
 #endif // ADAFRUIT_FEATHER_M0
 
 static CIRCLE_BUFFER <float> tempBuff;		// temperature circular buffer
@@ -52,7 +52,7 @@ void deviceSetup(void)
 #if defined (SERIAL_JACK_CONTROL)
 	setHeadphoneJack(JACK_SERIAL);	// configure headphone jack to Serial
 #else
-	//setHeadphoneJack(JACK_ADC);		// configure headphone jack to ADC so as to not affect I2C lines
+	setHeadphoneJack(JACK_ADC);		// configure headphone jack to ADC so as to not affect I2C lines
 #endif
 
 #ifdef ADAFRUIT_FEATHER_M0
@@ -73,18 +73,18 @@ void deviceSetup(void)
 	ERROR.set(ERROR_INIT);		// set error state during initialisation, and set LED to orange	
 
 	readEEPROM();				// load settings from EEPROM, if no settings, use defaults
-	
+
 	setupMtrs();				//Setup the motors...
 	initFingerPins();			// attach finger pins and start ms timer
 
 	initSerialCharCodes();		// assign the char codes and functions to char codes
 
 	Grip.begin();				// initialise the grips
-	Grip.setGrip(G4);
+	Grip.setGrip(G0);
 	Grip.setDir(OPEN);
 	Grip.run();
 
-	//EMG.begin();				// initialise EMG control
+	EMG.begin();				// initialise EMG control
 
 #if !defined(ADAFRUIT_FEATHER_M0)	//The Adafruit design has no IMU so no point using it...
 	IMU.begin();				// initialise IMU	
@@ -101,20 +101,24 @@ void deviceSetup(void)
 	MYSERIAL_PRINTLN("End of Device Setup...");
 }
 
-void setupMtrs() 
+void setupMtrs()
 {
-	for (int i = 1; i <= 4; i++)
-	{
-		mtrs[i] = AFMS.getMotor(i);
-		MYSERIAL_PRINT("Motor connected - ");
-		MYSERIAL_PRINTLN(i);
-	}
-
 	//Need to configure the AdaFruit Motor Shield as this will be done inside the
 	//FingerLib files...
 	MYSERIAL_PRINTLN("Starting the AFMS...");
-	AFMS.begin();
+	AFMS.begin(1000);
 	MYSERIAL_PRINTLN("AFMS started...");
+
+	/*for (int i = 1; i <= 4; i++)
+	{
+		char text[80];
+		Adafruit_DCMotor *test = AFMS.getMotor(i);
+		snprintf(text, 80, "%d", test);
+		mtrs[i] = test;
+		MYSERIAL_PRINT("Motor connected - ");
+		MYSERIAL_PRINT(text);
+		MYSERIAL_PRINTLN(i);
+	}*/
 }
 
 // wait for serial connection if flag is set
@@ -123,12 +127,12 @@ void detectSerialConnection(void)
 	if (settings.waitForSerial)			// if flag is set
 	{
 		MYSERIAL_PRINTLN("Waiting for serial...")
-		while (!MYSERIAL)				// wait for serial connection
-		{
-//#if defined(ARDUINO_ARCH_SAMD)
-//			Watchdog.reset();
-//#endif
-		}
+			while (!MYSERIAL)				// wait for serial connection
+			{
+				//#if defined(ARDUINO_ARCH_SAMD)
+				//			Watchdog.reset();
+				//#endif
+			}
 		MYSERIAL_PRINTLN_PGM("Started");
 	}
 }
@@ -210,7 +214,7 @@ void resetToDefaults(void)
 	ERROR.storeError(NO_ERROR);			// reset stored error state
 
 	settings.handType = HAND_TYPE_LEFT;	// right hand
-	settings.mode = MODE_DEMO;				// normal mode (not demo or EMG)
+	settings.mode = MODE_NONE;				// normal mode (not demo or EMG)
 
 	settings.emg.holdTime = 300;			// 300ms
 	settings.emg.peakThresh = 600;			// 600/1023
@@ -318,7 +322,7 @@ void initFingerPins(void)
 		finger[2].attach(-1, -1, A2, false);	// M2 Middle
 		finger[3].attach(-1, -1, A3, true);	// M4 Ring/Pinky
 	}
-	
+
 #else
 #error "You will need to enter the correct pins for the finger motor and position feedback"
 #endif
@@ -362,7 +366,7 @@ void printDeviceInfo(void)
 	// print Brunel version
 	MYSERIAL_PRINT("Brunel V");
 	MYSERIAL_PRINTLN(BRUNEL_VER);
-	
+
 	// print firmware version
 	MYSERIAL_PRINT("FW:\tBeetroot V");
 	MYSERIAL_PRINT(FW_VER_MAJ);
@@ -445,7 +449,7 @@ void monitorTemperature(void)
 			{
 				finger[i].motorEnable(false);
 			}
-			
+
 			ERROR.set(ERROR_TEMP_MAX);		// set error
 		}
 

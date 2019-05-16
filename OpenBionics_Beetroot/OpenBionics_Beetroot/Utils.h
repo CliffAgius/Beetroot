@@ -17,6 +17,7 @@
 #define UTILS_H_
 
 #include "Globals.h"
+#include "BlueTooth.h"
 #ifndef ADAFRUIT_FEATHER_M0
 	#include "I2C_EEPROM.h"
 #endif // !ADAFRUIT_FEATHER_M0

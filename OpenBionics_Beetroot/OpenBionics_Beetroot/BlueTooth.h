@@ -1,8 +1,11 @@
+#ifndef _Bluetooth
+#define _Bluetooth
+
 // COMMON SETTINGS
 // ----------------------------------------------------------------------------------------------
 // These settings are used in both SW UART, HW UART and SPI mode
 // ----------------------------------------------------------------------------------------------
-#define BUFSIZE                        128   // Size of the read buffer for incoming data
+#define BUFSIZE                        64   // Size of the read buffer for incoming data
 #define VERBOSE_MODE                   true  // If set to 'true' enables debug output
 
 
@@ -26,3 +29,10 @@
 
 void setupBT();
 void PollBT();
+void ClearBTBuffer();
+void BTPrint(const char[]);
+void BTPrintLn(const char[]);
+
+extern char BTinputs[];
+
+#endif

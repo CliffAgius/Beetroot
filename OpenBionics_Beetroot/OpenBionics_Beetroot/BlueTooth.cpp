@@ -54,8 +54,8 @@
 #define MODE_LED_BEHAVIOUR          "MODE"
 	/*=========================================================================*/
 
-/* ...hardware SPI, using SCK/MOSI/MISO hardware SPI pins and then user selected CS/IRQ/RST */
 Adafruit_BluefruitLE_SPI blePrint(BLUEFRUIT_SPI_CS, BLUEFRUIT_SPI_IRQ, BLUEFRUIT_SPI_RST);
+char BTinputs[BUFSIZE + 1];
 
 void setupBT()
 {
@@ -95,34 +95,29 @@ void setupBT()
 	@brief  Constantly poll for new command or response data
 */
 /**************************************************************************/
-void PollBT()
+void PollBT(void)
 {
 	// Check for user input
-	char n, inputs[BUFSIZE + 1];
-
-	//if (Serial.available())
-	//{
-	//	n = Serial.readBytes(inputs, BUFSIZE);
-	//	inputs[n] = 0;
-	//	// Send characters to Bluefruit
-	//	Serial.print("Sending: ");
-	//	Serial.println(inputs);
-
-	//	// Send input data to host via Bluefruit
-	//	ble.print(inputs);
-	//}
+	char n = 0;
 
 	// Echo received data
 	while (blePrint.available())
 	{
-		int c = blePrint.read();
-
-		Serial1.print((char)c);
-
-		// Hex output too, helps w/debugging!
-		Serial1.print(" [0x");
-		if (c <= 0xF) Serial.print(F("0"));
-		Serial1.print(c, HEX);
-		Serial1.print("] ");
+		BTinputs[n++] = blePrint.read();
+		/*Serial.print("BT Val - ");
+		Serial.println(BTinputs[n - 1]);*/
 	}
+}
+
+void ClearBTBuffer() {
+	BTinputs[0] = NULL;
+}
+
+void BTPrint(const char str[]) {
+	blePrint.print(str);
+}
+
+void BTPrintLn(const char str[])
+{
+	blePrint.println(str);
 }

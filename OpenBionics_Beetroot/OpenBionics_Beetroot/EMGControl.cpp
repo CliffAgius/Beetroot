@@ -149,7 +149,8 @@ void EMG_CONTROL::getSample(void)
 
 		// store the previous signal for signal analysis
 		_channel[c].prevSignal = _channel[c].signal;
-
+		//MYSERIAL_PRINT("Signal - ");
+		//MYSERIAL_PRINTLN(_channel[c].signal);
 		// signal is the size of the active signal (signal > noise floor), and is always >= 0
 		_channel[c].signal = _channel[c].sample - _channel[c].noiseFloor.readMean();
 		if (_channel[c].signal < 0)
@@ -192,6 +193,7 @@ void EMG_CONTROL::analyseSignal(void)
 
 		if (detect_peakStart(_channel[c].signal, _channel[c].prevSignal))							// if at PEAK_START
 		{
+
 			_channel[c].HOLD_timer.start();				// start HOLD timer
 #if (NUM_EMG_CHANNELS == 2)
 			_channel[c].PEAK = true;					// set single PEAK flag	
@@ -379,6 +381,9 @@ void EMG_CONTROL::control_proportional(void)
 	//MYSERIAL_PRINTLN_PGM(pos);
 
 	pos = constrain(pos, 0, 100);
+	
+	MYSERIAL_PRINT("Grip being set to - ");
+	MYSERIAL_PRINT(pos);
 
 	Grip.setPos(pos);
 	Grip.run();
