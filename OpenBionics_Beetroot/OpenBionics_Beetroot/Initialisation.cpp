@@ -50,9 +50,9 @@ void deviceSetup(void)
 #endif
 
 #if defined (SERIAL_JACK_CONTROL)
-	setHeadphoneJack(JACK_SERIAL);	// configure headphone jack to Serial
+	//setHeadphoneJack(JACK_SERIAL);	// configure headphone jack to Serial
 #else
-	setHeadphoneJack(JACK_ADC);		// configure headphone jack to ADC so as to not affect I2C lines
+	//setHeadphoneJack(JACK_ADC);		// configure headphone jack to ADC so as to not affect I2C lines
 #endif
 
 #ifdef ADAFRUIT_FEATHER_M0
@@ -66,7 +66,7 @@ void deviceSetup(void)
 
 	//LED.begin();				// initialise NeoPixel
 
-	//timerSetup();				// initialise customMillis() and LED pulsing
+	timerSetup();				// initialise customMillis() and LED pulsing
 
 	ERROR.begin();				// initialise the error handler
 	ERROR.checkPrevError();		// check for previous errors (using EEPROM)
@@ -106,7 +106,7 @@ void setupMtrs()
 	//Need to configure the AdaFruit Motor Shield as this will be done inside the
 	//FingerLib files...
 	MYSERIAL_PRINTLN("Starting the AFMS...");
-	AFMS.begin(1000);
+	AFMS.begin(1600);
 	MYSERIAL_PRINTLN("AFMS started...");
 
 	/*for (int i = 1; i <= 4; i++)
@@ -320,7 +320,7 @@ void initFingerPins(void)
 		finger[0].attach(-1, -1, A0, true);		// M3 Thumb     
 		finger[1].attach(-1, -1, A1, false);	// M1 Index
 		finger[2].attach(-1, -1, A2, false);	// M2 Middle
-		finger[3].attach(-1, -1, A3, true);	// M4 Ring/Pinky
+		finger[3].attach(-1, -1, A3, false);	// M4 Ring/Pinky
 	}
 
 #else
