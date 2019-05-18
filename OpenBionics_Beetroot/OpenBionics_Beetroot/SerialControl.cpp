@@ -364,6 +364,31 @@ void releaseMtrs(void)
 #endif
 }
 
+void printFingerDetails() {
+
+	for (int i = 0; i < NUM_FINGERS; i++)
+	{
+		MYSERIAL_PRINT("Finger - ");
+		MYSERIAL_PRINTLN(i);
+		MYSERIAL_PRINT("DIR - ");
+		MYSERIAL_PRINTLN(finger[i].readDir());
+		MYSERIAL_PRINT("SPEED - ");
+		MYSERIAL_PRINTLN(finger[i].readSpeed());
+		MYSERIAL_PRINT("SPEED Target - ");
+		MYSERIAL_PRINTLN(finger[i].readTargetSpeed());
+		MYSERIAL_PRINT("POS - ");
+		MYSERIAL_PRINTLN(finger[i].readPos());
+		MYSERIAL_PRINT("POS Target - ");
+		MYSERIAL_PRINTLN(finger[i].readTargetPos());
+		MYSERIAL_PRINT("POS Error - ");
+		MYSERIAL_PRINTLN(finger[i].readPosError());
+		MYSERIAL_PRINT("PWM - ");
+		MYSERIAL_PRINTLN(finger[i].readPWM());
+		MYSERIAL_PRINT("PWM Target - ");
+		MYSERIAL_PRINTLN(finger[i].readTargetPWM());
+		MYSERIAL_PRINTLN("***************");
+	}
+}
 
 // CHAR CODE FUNCTIONS (the following functions are attached to the char codes)
 
@@ -467,6 +492,9 @@ void serial_AdvancedSettings(int setting)
 		break;
 	case 8:
 		releaseMtrs();
+		break;
+	case 9:
+		printFingerDetails();
 		break;
 	default:
 		MYSERIAL_PRINTLN_PGM("Advanced Setting Not Valid");

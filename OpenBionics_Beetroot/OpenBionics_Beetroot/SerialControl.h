@@ -54,7 +54,7 @@
 #define SERIAL_CODE_QMARK	15		// Print serial instructions
 
 // CODE VAL CONTRAINTS
-#define NUM_ADV_SETTINGS	8		// number of advanced settings
+#define NUM_ADV_SETTINGS	9		// number of advanced settings
 #define NUM_EMG_MODES		3		// number of EMG modes
 #define NUM_HAND_TYPES		3		// None, Left, Right
 #define LIMIT_FOR_BOOLEAN	1		// either 0 or 1
@@ -89,7 +89,7 @@ void sendCSV(void);						// if CSV mode is enabled, send CSV of all finger posit
 void receiveCSV(char *buff);			// if string contains CSV data, write received positions to the fingers
 void readMuscleADC(void);				// Read Muscle ADC values...
 void releaseMtrs(void);					//Release the motors if ADafruit board is being used...
-
+void printFingerDetails();	//Read the details of the finger passed in...
 
 
 // CHAR CODE FUNCTIONS (the following functions are attached to the char codes)
