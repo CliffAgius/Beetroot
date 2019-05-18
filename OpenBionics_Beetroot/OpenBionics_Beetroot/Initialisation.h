@@ -101,9 +101,7 @@ float readMaxTemp(void);			// read the maximum temperature reached since power-o
 void monitorTemperature(void);		// check the temperature, throw warnings/errors or shutdown if too high
 			
 
-void watchdogCallback(void);		// set the WDT error and shutdown safely
-
-
+//void watchdogCallback(void);		// set the WDT error and shutdown safely
 
 extern Settings settings;			// board settings
 

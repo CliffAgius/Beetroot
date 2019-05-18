@@ -72,8 +72,17 @@ void setupBT()
 	blePrint.echo(false);
 
 	/* Wait for connection */
-	while (!blePrint.isConnected()) {
+	//Wait for the connection or waitTime length which ever comes first...
+	unsigned long startedWaiting = millis();
+	unsigned long waitTime = 5000;				//Wait time in ms...
+	while (!blePrint.isConnected() && millis() - startedWaiting <= waitTime) {
 		delay(500);
+	}
+
+	//Check if we connected of the connection timed out...
+	if (!blePrint.isConnected())
+	{
+		return;
 	}
 
 	// LED Activity command is only supported from 0.6.6
@@ -97,15 +106,18 @@ void setupBT()
 /**************************************************************************/
 void PollBT(void)
 {
-	// Check for user input
-	char n = 0;
-
-	// Echo received data
-	while (blePrint.available())
+	if (blePrint.isConnected())
 	{
-		BTinputs[n++] = blePrint.read();
-		/*Serial.print("BT Val - ");
-		Serial.println(BTinputs[n - 1]);*/
+		// Check for user input
+		char n = 0;
+
+		// Echo received data
+		while (blePrint.available())
+		{
+			BTinputs[n++] = blePrint.read();
+			/*Serial.print("BT Val - ");
+			Serial.println(BTinputs[n - 1]);*/
+		}
 	}
 }
 
@@ -114,10 +126,16 @@ void ClearBTBuffer() {
 }
 
 void BTPrint(const char str[]) {
-	blePrint.print(str);
+	if (blePrint.isConnected())
+	{
+		blePrint.print(str);
+	}
 }
 
 void BTPrintLn(const char str[])
 {
-	blePrint.println(str);
+	if (blePrint.isConnected())
+	{
+		blePrint.println(str);
+	}
 }

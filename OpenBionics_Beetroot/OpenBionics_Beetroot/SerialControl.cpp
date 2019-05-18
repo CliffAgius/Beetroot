@@ -351,6 +351,19 @@ void readMuscleADC(void)
 	}
 }
 
+void releaseMtrs(void) 
+{
+#ifdef ADAFRUIT_FEATHER_M0
+	MYSERIAL_PRINTLN("Releasing Motors...");
+	for (int i = 0; i < NUM_FINGERS; i++)
+	{
+		finger[i].stopMotor();
+	}
+#else
+	MYSERIAL_PRINTLN("THis function only used if Adafruit BOard is in use!");
+#endif
+}
+
 
 // CHAR CODE FUNCTIONS (the following functions are attached to the char codes)
 
@@ -449,9 +462,11 @@ void serial_AdvancedSettings(int setting)
 	case 6:			// read finger positions as CSV			
 		sendCSV();
 		break;
-
 	case 7:			// read Muscle values as CSV.
 		readMuscleADC();
+		break;
+	case 8:
+		releaseMtrs();
 		break;
 	default:
 		MYSERIAL_PRINTLN_PGM("Advanced Setting Not Valid");
@@ -516,13 +531,13 @@ void serial_FingerControl(int fNum)
 	MYSERIAL_PRINT_PGM("Finger: \t");
 	MYSERIAL_PRINTLN(fNum);
 
-	MYSERIAL_PRINT_PGM("Direction:\t");
+	MYSERIAL_PRINT_PGM("Movement Direction:\t");
 	MYSERIAL_PRINTLN(dirStr[finger[fNum].readDir()]);
 
-	MYSERIAL_PRINT_PGM("Position:\t");
+	MYSERIAL_PRINT_PGM("Target Position:\t");
 	MYSERIAL_PRINTLN(serialCodes[SERIAL_CODE_P].val);
 
-	MYSERIAL_PRINT_PGM("Speed:\t\t");
+	MYSERIAL_PRINT_PGM("Target Speed:\t\t");
 	MYSERIAL_PRINTLN(finger[fNum].readTargetPWM());
 
 
@@ -831,6 +846,7 @@ void serial_SerialInstructions(int val)
 	MYSERIAL_PRINTLN_PGM("A5          Enable/Disable HANDle mode (Wii Nunchuck)");
 	MYSERIAL_PRINTLN_PGM("A6          Get the position of all fingers as a CSV string");
 	MYSERIAL_PRINTLN_PGM("A7          Get 20 values from the Muscle sensors as a CSV string");
+	MYSERIAL_PRINTLN_PGM("A8          Release the Motors");
 	MYSERIAL_PRINTLN_PGM("#           Display system diagnostics");
 	MYSERIAL_PRINTLN_PGM("?           Display serial commands list");
 	MYSERIAL_PRINT_PGM("\n");

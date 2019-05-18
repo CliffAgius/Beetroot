@@ -45,9 +45,9 @@ void EMG_CONTROL::begin(void)
 
 
 #if defined(USE_I2C_EMG)
-	setHeadphoneJack(JACK_I2C);		// set comms switch to I2C over the headphone jack
+	//setHeadphoneJack(JACK_I2C);		// set comms switch to I2C over the headphone jack
 #else
-	setHeadphoneJack(JACK_ADC);		// set comms switch to ADC over the headphone jack
+	//setHeadphoneJack(JACK_ADC);		// set comms switch to ADC over the headphone jack
 
 	attachPin(0, A4);		// if using analogue EMG, attach analogue pins
 	#if (NUM_EMG_CHANNELS > 1 )

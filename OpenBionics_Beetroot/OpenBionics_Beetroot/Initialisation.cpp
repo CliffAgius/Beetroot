@@ -28,7 +28,7 @@
 #include "HANDle.h"							// HANDle
 #include "LED.h"							// NeoPixel
 #include "SerialControl.h"					// init char codes
-#include "Watchdog.h"						// Watchdog
+//#include "Watchdog.h"						// Watchdog
 
 //If the Adafruit board is used then need to use the FlashAsEEPROM as it has no EEPROM so it needs to be faked...
 #ifdef ADAFRUIT_FEATHER_M0
@@ -309,7 +309,7 @@ void initFingerPins(void)
 	// attach the finger pins
 	if (settings.handType == HAND_TYPE_RIGHT)
 	{
-		finger[0].attach(-1, -1, A0, true);		// Thumb
+		finger[0].attach(-1, -1, A0, false);		// Thumb
 		finger[1].attach(-1, -1, A1, false);	// Index
 		finger[2].attach(-1, -1, A2, false);	// Middle
 		finger[3].attach(-1, -1, A3, false);	// Ring/Pinky
@@ -334,6 +334,7 @@ void initFingerPins(void)
 		if (!finger[i].attached())				// if finger failed to attach
 		{
 			ERROR.set(ERROR_FINGER_INIT);		// set error
+			MYSERIAL_PRINTLN("**Finger failed to attach***");
 			break;
 		}
 
