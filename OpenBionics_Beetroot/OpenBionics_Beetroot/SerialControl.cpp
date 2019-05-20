@@ -360,7 +360,7 @@ void releaseMtrs(void)
 		finger[i].stopMotor();
 	}
 #else
-	MYSERIAL_PRINTLN("THis function only used if Adafruit BOard is in use!");
+	MYSERIAL_PRINTLN("This function only used if Adafruit Board is in use!");
 #endif
 }
 
