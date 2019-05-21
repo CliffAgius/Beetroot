@@ -259,10 +259,13 @@ void EMG_CONTROL::printEMGData(void)
 void EMG_CONTROL::control(void)
 {
 	// if the OPEN muscle has been HELD
-	if (_channel[0].HOLD)			
+	if (_channel[0].PEAK && _channel[1].PEAK)			
 	{
 		// reset HOLD flag
 		_channel[0].HOLD = false;
+		_channel[1].HOLD = false;
+		_channel[0].PEAK = false;
+		_channel[1].PEAK = false;
 
 		// cycle to next grip
 		Grip.nextGrip();
@@ -382,8 +385,8 @@ void EMG_CONTROL::control_proportional(void)
 
 	pos = constrain(pos, 0, 100);
 	
-	MYSERIAL_PRINT("Grip being set to - ");
-	MYSERIAL_PRINT(pos);
+	/*MYSERIAL_PRINT("Grip being set to - ");
+	MYSERIAL_PRINT(pos);*/
 
 	Grip.setPos(pos);
 	Grip.run();

@@ -106,7 +106,7 @@ void setupMtrs()
 	//Need to configure the AdaFruit Motor Shield as this will be done inside the
 	//FingerLib files...
 	MYSERIAL_PRINTLN("Starting the AFMS...");
-	AFMS.begin(1600);
+	AFMS.begin();
 	MYSERIAL_PRINTLN("AFMS started...");
 
 	/*for (int i = 1; i <= 4; i++)
@@ -198,8 +198,8 @@ void storeSettings(void)
 	EEPROM.write(4, settings.waitForSerial);
 	EEPROM.write(5, settings.motorEn);
 	EEPROM.write(6, settings.printInstr);
-	EEPROM.write(7, settings.init);*/
-	//EEPROM.commit();
+	EEPROM.write(7, settings.init);
+	EEPROM.commit();*/
 #else
 	//Use the normal I2C_EEPROM system...
 	EEPROM_writeStruct(EEPROM_LOC_BOARD_SETTINGS, settings);
@@ -214,10 +214,10 @@ void resetToDefaults(void)
 	ERROR.storeError(NO_ERROR);			// reset stored error state
 
 	settings.handType = HAND_TYPE_LEFT;	// right hand
-	settings.mode = MODE_NONE;				// normal mode (not demo or EMG)
+	settings.mode = MODE_EMG_PROP;				// normal mode (not demo or EMG)
 
-	settings.emg.holdTime = 300;			// 300ms
-	settings.emg.peakThresh = 600;			// 600/1023
+	settings.emg.holdTime = 150;			// 300ms
+	settings.emg.peakThresh = 300;			// 600/1023
 
 	settings.waitForSerial = true;			// wait for serial connection to start
 	settings.motorEn = true;				// enable all motors
