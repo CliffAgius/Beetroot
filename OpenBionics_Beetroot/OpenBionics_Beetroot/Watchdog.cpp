@@ -13,6 +13,10 @@
 *
 */
 
+#ifndef ADAFRUIT_FEATHER_M0
+
+
+
 #include <Arduino.h>
 
 #if defined(ARDUINO_ARCH_SAMD)
@@ -293,3 +297,4 @@ void WDT_Handler(void)
 WDT_CLASS Watchdog;
 
 #endif // ARDUINO_ARCH_SAMD
+#endif // !ADAFRUIT_FEATHER_M0

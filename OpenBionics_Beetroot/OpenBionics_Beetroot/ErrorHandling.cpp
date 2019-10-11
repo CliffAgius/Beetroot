@@ -19,13 +19,13 @@
 
 
 #include "LED.h"
-#include "Watchdog.h"
 
 //If the Adafruit board is used then need to use the FlashAsEEPROM as it has no EEPROM so it needs to be faked...
 #ifdef ADAFRUIT_FEATHER_M0
 	#include <FlashAsEEPROM.h>
 #else
 	#include "I2C_EEPROM.h"
+	#include "Watchdog.h"
 #endif // ADAFRUIT_FEATHER_M0
 
 ////////////////////////////// Constructors/Destructors //////////////////////////////
@@ -195,7 +195,7 @@ void ERROR_HANDLING::set(ErrorType error)
 		while (1)
 		{
 #if defined(ARDUINO_ARCH_SAMD)
-			Watchdog.reset();
+			//Watchdog.reset();
 #endif
 		}
 	}

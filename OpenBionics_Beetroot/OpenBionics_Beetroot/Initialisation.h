@@ -70,6 +70,7 @@ typedef struct _Settings
 	uint8_t printInstr = true;		// print serial instructions
 
 	uint8_t init = false;			// if the EEPROM has been initialised for the first time
+	uint16_t watchDogTime;			// WatchDog Timer In ms.
 } Settings;
 
 

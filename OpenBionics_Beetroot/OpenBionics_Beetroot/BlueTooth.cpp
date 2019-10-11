@@ -52,6 +52,7 @@
 #define FACTORYRESET_ENABLE         1
 #define MINIMUM_FIRMWARE_VERSION    "0.6.6"
 #define MODE_LED_BEHAVIOUR          "MODE"
+#define BTDEVICENAME				"Handy"
 	/*=========================================================================*/
 
 Adafruit_BluefruitLE_SPI blePrint(BLUEFRUIT_SPI_CS, BLUEFRUIT_SPI_IRQ, BLUEFRUIT_SPI_RST);
@@ -66,6 +67,8 @@ void setupBT()
 	if (FACTORYRESET_ENABLE)
 	{
 		blePrint.factoryReset();
+		//Rename the BLuetooth device...
+		blePrint.sendCommandCheckOK("AT+GAPDEVNAME=" BTDEVICENAME);
 	}
 
 	/* Disable command echo from Bluefruit */
@@ -74,7 +77,7 @@ void setupBT()
 	/* Wait for connection */
 	//Wait for the connection or waitTime length which ever comes first...
 	unsigned long startedWaiting = millis();
-	unsigned long waitTime = 5000;				//Wait time in ms...
+	unsigned long waitTime = 10000;				//Wait time in ms...
 	while (!blePrint.isConnected() && millis() - startedWaiting <= waitTime) {
 		delay(500);
 	}
@@ -91,6 +94,8 @@ void setupBT()
 		// Change Mode LED Activity
 		blePrint.sendCommandCheckOK("AT+HWModeLED=" MODE_LED_BEHAVIOUR);
 	}
+
+
 
 	// Set module to DATA mode
 	blePrint.setMode(BLUEFRUIT_MODE_DATA);

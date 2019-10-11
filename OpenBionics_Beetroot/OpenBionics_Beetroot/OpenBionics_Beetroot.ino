@@ -15,13 +15,17 @@
 
 
 
+#include <Adafruit_SleepyDog.h>
 #include <SPI.h>
 
 #ifdef ADAFRUIT_FEATHER_M0
-	#include <FlashAsEEPROM.h>
-	#include <Adafruit_ATParser.h>
-	#include <MultiStepper.h>
+	#include <FlashAsEEPROM.h>					//Feather Board has no EEPROM so this uses Flash Instead
+	#include <Adafruit_ATParser.h>				//Parse the AT commands for the BT module
+	#include <MultiStepper.h>					
 	#include <AccelStepper.h>
+	#include <Adafruit_SleepyDog.h>				//Adafruit WatchDog Timer...
+#else
+	#include "Watchdog.h"						// Watchdog
 #endif // ADAFRUIT_FEATHER_M0
 
 
@@ -34,7 +38,6 @@
 #include "HANDle.h"							// HANDle
 #include "Initialisation.h"					// settings, deviceSetup, systemMonitor 
 #include "SerialControl.h"					// pollSerial
-#include "Watchdog.h"						// Watchdog
 
 #if defined(ARDUINO_SAMD_ZERO) && defined(SERIAL_PORT_USBVIRTUAL)
  // Required for Serial on Zero based boards
@@ -86,7 +89,7 @@ void loop()
 	// process any received serial characters
 	pollSerial();
 
-#if defined(ARDUINO_ARCH_SAMD)
-	//Watchdog.reset();
+#if defined(ADAFRUIT_FEATHER_M0)
+	Watchdog.reset();
 #endif
 }

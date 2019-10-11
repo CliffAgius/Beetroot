@@ -28,14 +28,16 @@
 #include "HANDle.h"							// HANDle
 #include "LED.h"							// NeoPixel
 #include "SerialControl.h"					// init char codes
-//#include "Watchdog.h"						// Watchdog
+
 
 //If the Adafruit board is used then need to use the FlashAsEEPROM as it has no EEPROM so it needs to be faked...
 #ifdef ADAFRUIT_FEATHER_M0
-#include "BlueTooth.h"						//Bluetooth.
-#include <FlashAsEEPROM.h>
+	#include "BlueTooth.h"						//Bluetooth.
+	#include <FlashAsEEPROM.h>
+	#include <Adafruit_SleepyDog.h>
 #else
-#include "I2C_EEPROM.h"
+	#include "Watchdog.h"						// Watchdog
+	#include "I2C_EEPROM.h"
 #endif // ADAFRUIT_FEATHER_M0
 
 static CIRCLE_BUFFER <float> tempBuff;		// temperature circular buffer
@@ -96,6 +98,7 @@ void deviceSetup(void)
 	ERROR.clear(ERROR_INIT);	// clear error state and set LED to green
 
 #if defined(ARDUINO_ARCH_SAMD)
+	Watchdog.enable(WATCHDOG_RESET_PER);
 	//Watchdog.reset();
 #endif
 	MYSERIAL_PRINTLN("End of Device Setup...");
@@ -191,7 +194,7 @@ void storeSettings(void)
 
 //As the Feather board is being used the EEPROM chip dosn't exist so use FlashAsEERPOM instead...
 #ifdef ADAFRUIT_FEATHER_M0
-	/*EEPROM.write(0, settings.handType);
+	EEPROM.write(0, settings.handType);
 	EEPROM.write(1, settings.mode);
 	EEPROM.write(2, settings.emg.peakThresh);
 	EEPROM.write(3, settings.emg.holdTime);
@@ -199,7 +202,7 @@ void storeSettings(void)
 	EEPROM.write(5, settings.motorEn);
 	EEPROM.write(6, settings.printInstr);
 	EEPROM.write(7, settings.init);
-	EEPROM.commit();*/
+	EEPROM.commit();
 #else
 	//Use the normal I2C_EEPROM system...
 	EEPROM_writeStruct(EEPROM_LOC_BOARD_SETTINGS, settings);
@@ -214,9 +217,9 @@ void resetToDefaults(void)
 	ERROR.storeError(NO_ERROR);			// reset stored error state
 
 	settings.handType = HAND_TYPE_LEFT;	// right hand
-	settings.mode = MODE_EMG_PROP;				// normal mode (not demo or EMG)
+	settings.mode = MODE_EMG_SIMPLE;				// normal mode (not demo or EMG)
 
-	settings.emg.holdTime = 150;			// 300ms
+	settings.emg.holdTime = 100;			// 300ms
 	settings.emg.peakThresh = 300;			// 600/1023
 
 	settings.waitForSerial = true;			// wait for serial connection to start
@@ -375,10 +378,14 @@ void printDeviceInfo(void)
 	MYSERIAL_PRINT(FW_VER_MIN);
 	MYSERIAL_PRINT(".");
 	MYSERIAL_PRINTLN(FW_VER_PAT);
-
+#ifndef ADAFRUIT_FEATHER_M0
 	// print board name
 	MYSERIAL_PRINTLN_PGM("Board:\tChestnut");
-
+#else
+	// print board name
+	MYSERIAL_PRINTLN_PGM("Board:\tAdafruit Feather M0");
+#endif // !ADAFRUIT_FEATHER_M0
+	
 	// print hand type
 	MYSERIAL_PRINT_PGM("Hand:\t");
 	MYSERIAL_PRINTLN(handTypeNames[settings.handType]);
