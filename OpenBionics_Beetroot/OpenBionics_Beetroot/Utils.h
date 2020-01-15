@@ -91,6 +91,7 @@ FORCE_INLINE void serialprintPGM(const char *str)
 		while (ch)
 		{
 			MYSERIAL.write(ch);
+			BTPrintPGM(ch);
 			ch = pgm_read_byte(++str);
 		}
 	}
@@ -100,17 +101,20 @@ FORCE_INLINE void serialprintPGM(const char *str)
 	if( SERIALNONBLOCKCHECK )\
 	{\
 		MYSERIAL.print(x);\
+		BTPrint(x);\
 	}
 #define MYSERIAL_PRINT_F(x,y)\
 	if( SERIALNONBLOCKCHECK )\
 	{\
 		MYSERIAL.print(x,y);\
+		BTPrint(x,y);\
 	}
 #define MYSERIAL_PRINTLN(x) \
 	if( SERIALNONBLOCKCHECK )\
 	{\
 		MYSERIAL.print(x);\
 		MYSERIAL.write('\n');\
+		BTPrintLn(x);\
 	}
 
 #define MYSERIAL_PRINT_PGM(x) serialprintPGM(PSTR(x));

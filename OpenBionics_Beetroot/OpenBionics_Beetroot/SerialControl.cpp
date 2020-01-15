@@ -186,7 +186,7 @@ bool checkSerial(void)
 					MYSERIAL_PRINT_PGM("' (0x");
 					MYSERIAL_PRINT_F((int)rxChar,HEX);
 					MYSERIAL_PRINTLN_PGM(") IS NOT A VALID CHARACTER");
-					BTPrintLn("Warning - That was not a valid Character");
+					//BTPrintLn("Warning - That was not a valid Character");
 				}
 
 			}
@@ -302,7 +302,7 @@ void sendCSV(void)
 	convertToCSV(posArray, NUM_FINGERS, CSVStr);	// convert position array to CSV string
 
 	MYSERIAL_PRINTLN(CSVStr);				// send CSV string over serial
-	BTPrintLn(CSVStr);
+	//BTPrintLn(CSVStr);
 }
 
 // if string contains CSV data, write received positions to the fingers
@@ -416,8 +416,8 @@ void serial_AdvancedSettings(int setting)
 		storeSettings();
 		MYSERIAL_PRINT_PGM("Demo mode ");
 		MYSERIAL_PRINTLN(off_on[settings.mode]);
-		BTPrint("Demo Mode ");
-		BTPrintLn(off_on[settings.mode]);
+		//BTPrint("Demo Mode ");
+		//BTPrintLn(off_on[settings.mode]);
 
 		break;
 
@@ -506,7 +506,7 @@ void serial_AdvancedSettings(int setting)
 void serial_ToggleDemoMode(int val)
 {
 	MYSERIAL_PRINTLN_PGM("Demo Mode");
-	BTPrintLn("Demo Mode");
+	//BTPrintLn("Demo Mode");
 	DEMO.toggleOnce();
 }
 

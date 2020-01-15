@@ -98,7 +98,7 @@ void deviceSetup(void)
 	ERROR.clear(ERROR_INIT);	// clear error state and set LED to green
 
 #if defined(ARDUINO_ARCH_SAMD)
-	Watchdog.enable(WATCHDOG_RESET_PER);
+	//Watchdog.enable(WATCHDOG_RESET_PER);
 	//Watchdog.reset();
 #endif
 	MYSERIAL_PRINTLN("End of Device Setup...");
@@ -219,8 +219,8 @@ void resetToDefaults(void)
 	settings.handType = HAND_TYPE_LEFT;	// right hand
 	settings.mode = MODE_EMG_SIMPLE;				// normal mode (not demo or EMG)
 
-	settings.emg.holdTime = 100;			// 300ms
-	settings.emg.peakThresh = 300;			// 600/1023
+	settings.emg.holdTime = 300;			// 300ms
+	settings.emg.peakThresh = 600;			// 600/1023
 
 	settings.waitForSerial = true;			// wait for serial connection to start
 	settings.motorEn = true;				// enable all motors

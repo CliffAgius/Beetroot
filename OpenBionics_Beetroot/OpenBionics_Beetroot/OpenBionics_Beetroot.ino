@@ -90,6 +90,6 @@ void loop()
 	pollSerial();
 
 #if defined(ADAFRUIT_FEATHER_M0)
-	Watchdog.reset();
+	//Watchdog.reset();
 #endif
 }

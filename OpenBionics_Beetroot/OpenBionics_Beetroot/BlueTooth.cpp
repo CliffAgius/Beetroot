@@ -144,3 +144,11 @@ void BTPrintLn(const char str[])
 		blePrint.println(str);
 	}
 }
+
+void BTPrintPGM(char ch)
+{
+	if (blePrint.isConnected())
+	{
+		blePrint.print(ch);
+	}
+}
