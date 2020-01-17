@@ -57,12 +57,12 @@ void deviceSetup(void)
 	//setHeadphoneJack(JACK_ADC);		// configure headphone jack to ADC so as to not affect I2C lines
 #endif
 
+	MYSERIAL.begin(SERIAL_BAUD_RATE);		// initialise Serial
+
 #ifdef ADAFRUIT_FEATHER_M0
 	setupBT();					//Setup the Bluetooth connection with the OnBoard BlueFruit LE Module...
 	MYSERIAL.println("Bluetooth Started...");
 #endif
-
-	MYSERIAL.begin(SERIAL_BAUD_RATE);		// initialise Serial
 
 	Wire.begin();				// initialise I2C
 

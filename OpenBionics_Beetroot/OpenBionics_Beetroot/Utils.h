@@ -97,18 +97,23 @@ FORCE_INLINE void serialprintPGM(const char *str)
 	}
 }
 
+/*BTPrint(x);\*/
 #define MYSERIAL_PRINT(x)\
 	if( SERIALNONBLOCKCHECK )\
 	{\
 		MYSERIAL.print(x);\
 		BTPrint(x);\
 	}
+//		BTPrint(x,y);\
+
 #define MYSERIAL_PRINT_F(x,y)\
 	if( SERIALNONBLOCKCHECK )\
 	{\
 		MYSERIAL.print(x,y);\
 		BTPrint(x,y);\
 	}
+//		BTPrintLn(x);\
+
 #define MYSERIAL_PRINTLN(x) \
 	if( SERIALNONBLOCKCHECK )\
 	{\

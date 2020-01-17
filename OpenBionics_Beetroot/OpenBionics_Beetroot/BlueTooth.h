@@ -31,7 +31,10 @@ void setupBT();
 void PollBT();
 void ClearBTBuffer();
 void BTPrint(const char[]);
+void BTPrint(int val);
+void BTPrint(int val, int format);
 void BTPrintLn(const char[]);
+void BTPrintLn(int str);
 void BTPrintPGM(char ch);
 
 extern char BTinputs[];
