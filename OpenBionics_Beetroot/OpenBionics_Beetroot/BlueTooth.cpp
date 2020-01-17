@@ -113,19 +113,30 @@ void setupBT()
 /**************************************************************************/
 void PollBT(void)
 {
-	if (blePrint.isConnected())
-	{
-		// Check for user input
-		char n = 0;
-
-		// Echo received data
-		while (blePrint.available())
-		{
-			BTinputs[n++] = blePrint.read();
-			/*Serial.print("BT Val - ");
-			Serial.println(BTinputs[n - 1]);*/
-		}
+	// Check for incoming characters from Bluefruit
+	blePrint.println("AT+BLEUARTRX");
+	blePrint.readline();
+	if (strcmp(blePrint.buffer, "OK") == 0) {
+		// no data
+		return;
 	}
+	// Some data was found, its in the buffer lets get it
+    strcpy(BTinputs, blePrint.buffer);
+	blePrint.waitForOK();
+	   	  
+	//if (blePrint.isConnected())
+	//{
+	//	// Check for user input
+	//	char n = 0;
+
+	//	// Echo received data
+	//	while (blePrint.available())
+	//	{
+	//		BTinputs[n++] = blePrint.read();
+	//		/*Serial.print("BT Val - ");
+	//		Serial.println(BTinputs[n - 1]);*/
+	//	}
+	//}
 }
 
 void ClearBTBuffer() {
@@ -134,49 +145,97 @@ void ClearBTBuffer() {
 
 void BTPrint(const char str[]) 
 {
-	if (blePrint.isConnected())
-	{
-		blePrint.print(str);
+	blePrint.print("AT+BLEUARTTX=");
+	blePrint.print(str);
+
+	// check response stastus
+	if (!blePrint.waitForOK()) {
+		Serial.println(F("Failed to send?"));
 	}
+
+	//if (blePrint.isConnected())
+	//{
+		//blePrint.print(str);
+	//}
 }
 
 void BTPrint(int val) 
 {
-	if (blePrint.isConnected())
-	{
-		blePrint.print(val);
+	blePrint.print("AT+BLEUARTTX=");
+	blePrint.print(val);
+
+	// check response stastus
+	if (!blePrint.waitForOK()) {
+		Serial.println(F("Failed to send?"));
 	}
+
+	//if (blePrint.isConnected())
+	//{
+	//	blePrint.print(val);
+	//}
 }
 
 void BTPrint(int val, int format)
 {
-	if (blePrint.isConnected())
-	{
-		blePrint.print(val, format);
+	blePrint.print("AT+BLEUARTTX=");
+	blePrint.print(val, format);
+
+	// check response stastus
+	if (!blePrint.waitForOK()) {
+		Serial.println(F("Failed to send?"));
 	}
+
+	//if (blePrint.isConnected())
+	//{
+	//	blePrint.print(val, format);
+	//}
 }
 
 
 void BTPrintLn(const char str[])
 {
-	if (blePrint.isConnected())
-	{
-		blePrint.println(str);
+	blePrint.print("AT+BLEUARTTX=");
+	blePrint.println(str);
+
+	// check response stastus
+	if (!blePrint.waitForOK()) {
+		Serial.println(F("Failed to send?"));
 	}
+
+	//if (blePrint.isConnected())
+	//{
+	//	blePrint.println(str);
+	//}
 }
 
 void BTPrintLn(int str)
 {
-	if (blePrint.isConnected())
-	{
-		blePrint.println(str);
+	blePrint.print("AT+BLEUARTTX=");
+	blePrint.println(str);
+
+	// check response stastus
+	if (!blePrint.waitForOK()) {
+		Serial.println(F("Failed to send?"));
 	}
+
+	//if (blePrint.isConnected())
+	//{
+	//	blePrint.println(str);
+	//}
 }
 
 void BTPrintPGM(char ch)
 {
-	if (blePrint.isConnected())
-	{
-		blePrint.print(ch);
+	blePrint.print("AT+BLEUARTTX=");
+	blePrint.print(ch);
+
+	// check response stastus
+	if (!blePrint.waitForOK()) {
+		Serial.println(F("Failed to send?"));
 	}
+
+	//if (blePrint.isConnected())
+	//{
+	//	blePrint.print(ch);
+	//}
 }
