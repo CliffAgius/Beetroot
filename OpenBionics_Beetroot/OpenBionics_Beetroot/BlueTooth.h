@@ -38,5 +38,6 @@ void BTPrintLn(int str);
 void BTPrintPGM(char ch);
 
 extern char BTinputs[];
+extern bool BTEnabled;
 
 #endif

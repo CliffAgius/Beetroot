@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenBionics_Beetroot", "OpenBionics_Beetroot\OpenBionics_Beetroot.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
 EndProject
@@ -11,15 +11,26 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AccelStepper", "..\..\..\..
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Adafruit_BluefruitLE_nRF51", "..\..\..\..\Arduino\libraries\Adafruit_BluefruitLE_nRF51\Adafruit_BluefruitLE_nRF51.vcxitems", "{1FC08F18-3A3A-4A1B-8DC4-E5AE912B4FE4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SPI", "..\..\..\..\..\Users\cliff\AppData\Local\arduino15\packages\adafruit\hardware\samd\1.2.9\libraries\SPI\SPI.vcxitems", "{6E86BF41-D68A-49AB-B10E-E3B0099DBABD}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FlashStorage", "..\..\..\..\Arduino\libraries\FlashStorage\FlashStorage.vcxitems", "{983F1BE6-FE62-4912-9CFB-4F0F7308F3C8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Adafruit_Motor_Shield_V2_Library", "..\..\..\..\Arduino\libraries\Adafruit_Motor_Shield_V2_Library\Adafruit_Motor_Shield_V2_Library.vcxitems", "{0EFE6DDC-0527-44AA-8020-9A15D6CAD470}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Wire", "..\..\..\..\..\Users\cliff\AppData\Local\arduino15\packages\adafruit\hardware\samd\1.2.9\libraries\Wire\Wire.vcxitems", "{A1124FD6-A8F2-44E2-9FD0-4B8D1CAFAAD2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SPI-1.0", "..\..\..\..\..\Users\cliff\AppData\Local\arduino15\packages\adafruit\hardware\samd\1.5.9\libraries\SPI\SPI-1.0.vcxitems", "{BB8C2C8A-AB47-4F34-BC23-206EA579C508}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Wire-1.0", "..\..\..\..\..\Users\cliff\AppData\Local\arduino15\packages\adafruit\hardware\samd\1.5.9\libraries\Wire\Wire-1.0.vcxitems", "{07182898-F7AF-4CF4-8158-BDE564A973B2}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\..\..\..\Users\cliff\AppData\Local\arduino15\packages\adafruit\hardware\samd\1.5.9\libraries\Wire\Wire-1.0.vcxitems*{07182898-f7af-4cf4-8158-bde564a973b2}*SharedItemsImports = 9
+		..\..\..\..\Arduino\libraries\Adafruit_Motor_Shield_V2_Library\Adafruit_Motor_Shield_V2_Library.vcxitems*{0efe6ddc-0527-44aa-8020-9a15d6cad470}*SharedItemsImports = 9
+		..\..\..\..\Arduino\libraries\Adafruit_BluefruitLE_nRF51\Adafruit_BluefruitLE_nRF51.vcxitems*{1fc08f18-3a3a-4a1b-8dc4-e5ae912b4fe4}*SharedItemsImports = 9
+		..\..\..\..\Arduino\libraries\AccelStepper\AccelStepper.vcxitems*{5ac42f27-6938-4ca7-ac6d-ba6f3d0a7330}*SharedItemsImports = 9
+		..\..\..\..\Arduino\libraries\FingerLib\FingerLib.vcxitems*{6ecc92b5-e346-4ad9-b001-3a745d89f48a}*SharedItemsImports = 9
+		..\..\..\..\Arduino\libraries\FlashStorage\FlashStorage.vcxitems*{983f1be6-fe62-4912-9cfb-4f0f7308f3c8}*SharedItemsImports = 9
+		..\..\..\..\..\Users\cliff\AppData\Local\arduino15\packages\adafruit\hardware\samd\1.5.9\libraries\SPI\SPI-1.0.vcxitems*{bb8c2c8a-ab47-4f34-bc23-206ea579c508}*SharedItemsImports = 9
+		..\..\..\..\..\Users\cliff\AppData\Local\arduino15\packages\adafruit\hardware\samd\1.5.9\libraries\SPI\SPI-1.0.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+		..\..\..\..\..\Users\cliff\AppData\Local\arduino15\packages\adafruit\hardware\samd\1.5.9\libraries\Wire\Wire-1.0.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86

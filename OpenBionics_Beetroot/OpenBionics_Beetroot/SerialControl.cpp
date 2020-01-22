@@ -25,7 +25,7 @@
 #include "Initialisation.h"			// settings
 
 #ifdef ADAFRUIT_FEATHER_M0
-	#include "BlueTooth.h"	// Use Bluetooth
+#include "BlueTooth.h"	// Use Bluetooth
 #endif // ADAFRUIT_FEATHER_M0
 
 
@@ -44,7 +44,7 @@ void initSerialCharCodes(void)
 	// Note. Do not use an 'e' or 'E' char, as strtod() reads these chars as an exponent modifier
 	// Note. Do not use a '+' or '-' char, as strtod() reads these chars as a sign modifier
 	// Note. Do not use a '0x' or '0X' char, as strtod() reads these chars as a hex modifier
-	
+
 
 	serialCodes[SERIAL_CODE_A].code = 'A';		// Advanced settings
 	serialCodes[SERIAL_CODE_A].limit = NUM_ADV_SETTINGS;
@@ -116,6 +116,7 @@ void initSerialCharCodes(void)
 void pollSerial(void)
 {
 	PollBT();
+
 	// read and store serial chars, return true if end of line char is received
 	if (checkSerial())
 	{
@@ -149,7 +150,7 @@ bool checkSerial(void)
 		rxChar = BTinputs[buffIndex];
 	}
 
-	if(rxChar != NULL)
+	if (rxChar != NULL)
 	{
 		// if the received char is an end of line character, reset buffer index and return true to indicate the message is ready to read
 		if ((rxChar == SERIAL_EOL_CHAR_NL) || (rxChar == SERIAL_EOL_CHAR_CR))
@@ -173,7 +174,7 @@ bool checkSerial(void)
 			}
 			else	// if there is space in the buffer
 			{
-				
+
 				// check if the char is valid
 				if (isValidChar(rxChar))
 				{
@@ -184,7 +185,7 @@ bool checkSerial(void)
 					MYSERIAL_PRINT_PGM("WARNING - '");
 					MYSERIAL_PRINT(rxChar);
 					MYSERIAL_PRINT_PGM("' (0x");
-					MYSERIAL_PRINT_F((int)rxChar,HEX);
+					MYSERIAL_PRINT_F((int)rxChar, HEX);
 					MYSERIAL_PRINTLN_PGM(") IS NOT A VALID CHARACTER");
 					//BTPrintLn("Warning - That was not a valid Character");
 				}
@@ -202,11 +203,11 @@ bool checkSerial(void)
 bool isValidChar(char rxChar)
 {
 	// if char is a permitted special character or an alphanumeric char, return true, else return false
-	if ((rxChar == ASCII_SPACE) || 
-		(rxChar == ASCII_HASH)	||
+	if ((rxChar == ASCII_SPACE) ||
+		(rxChar == ASCII_HASH) ||
 		(rxChar == ASCII_COMMA) ||
 		(rxChar == ASCII_QMARK) ||
-		IS_BETWEEN(rxChar, ASCII_0, ASCII_9) || 
+		IS_BETWEEN(rxChar, ASCII_0, ASCII_9) ||
 		IS_BETWEEN(rxChar, ASCII_A, ASCII_z))
 	{
 		return true;
@@ -220,7 +221,7 @@ bool isValidChar(char rxChar)
 // process serial buff and extract any char codes with their appended values
 void extractCodesFromSerial(void)
 {
-	char *codeLocPtr = NULL;	// pointer to location of code within serial buffer
+	char* codeLocPtr = NULL;	// pointer to location of code within serial buffer
 	bool detected = false;		// flag to indicate if a char code has been detected in the buffer
 
 	for (int i = 0; i < NUM_SERIAL_CODES; i++)
@@ -246,7 +247,7 @@ void extractCodesFromSerial(void)
 }
 
 // search through serial buffer and look for char code, if found return true and store pointer to loc of char code
-bool codeDetected(char code, char **codeLoc)
+bool codeDetected(char code, char** codeLoc)
 {
 	// get a pointer to the first occurrence of code in serialBuff
 	*codeLoc = strchr(serialBuff, code);
@@ -255,13 +256,13 @@ bool codeDetected(char code, char **codeLoc)
 }
 
 // get the numerical value following the char code at codeLoc
-int codeVal(char *codeLoc)
+int codeVal(char* codeLoc)
 {
 	codeLoc++;							// increment pointer to the value after the char code
 
 	if (isDigit(*codeLoc))					// if there is a digit following the char
 		return strtod(codeLoc, NULL);		// return the value of the digits
- 	else									// if there is no digit 
+	else									// if there is no digit 
 		return BLANK;						// return BLANK
 }
 
@@ -306,7 +307,7 @@ void sendCSV(void)
 }
 
 // if string contains CSV data, write received positions to the fingers
-void receiveCSV(char *buff)
+void receiveCSV(char* buff)
 {
 	int posArray[NUM_FINGERS];
 
@@ -319,7 +320,7 @@ void receiveCSV(char *buff)
 	}
 }
 
-void readMuscleADC(void) 
+void readMuscleADC(void)
 {
 	int senseArray[NUM_EMG_CHANNELS];
 	char CSVStr[64];
@@ -341,7 +342,7 @@ void readMuscleADC(void)
 		MYSERIAL_PRINT(senseArray[0]);
 		MYSERIAL_PRINT(" - ");
 		MYSERIAL_PRINTLN(senseArray[1]);
-		
+
 		//convertToCSV(senseArray, NUM_EMG_CHANNELS, CSVStr);	// convert position array to CSV string
 
 		//MYSERIAL_PRINTLN(CSVStr);				// send CSV string over serial
@@ -351,7 +352,7 @@ void readMuscleADC(void)
 	}
 }
 
-void releaseMtrs(void) 
+void releaseMtrs(void)
 {
 #ifdef ADAFRUIT_FEATHER_M0
 	MYSERIAL_PRINTLN("Releasing Motors...");
@@ -395,8 +396,8 @@ void printFingerDetails() {
 // configure the advanced settings
 void serial_AdvancedSettings(int setting)
 {
-	const char *off_on[2] = { "OFF","ON" };
-	const char *disabled_enabled[2] = { "DISABLED","ENABLED" };
+	const char* off_on[2] = { "OFF","ON" };
+	const char* disabled_enabled[2] = { "DISABLED","ENABLED" };
 
 
 	switch (setting)
@@ -458,7 +459,7 @@ void serial_AdvancedSettings(int setting)
 			settings.mode = MODE_NONE;
 			MYSERIAL_PRINTLN(disabled_enabled[0]);
 		}
-		else 
+		else
 		{
 			settings.mode = MODE_CSV;
 			MYSERIAL_PRINTLN(disabled_enabled[1]);
@@ -514,9 +515,9 @@ void serial_ToggleDemoMode(int val)
 void serial_FingerControl(int fNum)
 {
 	const char* dirStr[2] = { "Open", "Close" };
-	
 
-	if (!IS_BETWEEN(fNum, 0, NUM_FINGERS)) 
+
+	if (!IS_BETWEEN(fNum, 0, NUM_FINGERS))
 	{
 		MYSERIAL_PRINTLN_PGM("Finger Number Not Valid");
 		return;
@@ -546,7 +547,7 @@ void serial_FingerControl(int fNum)
 		serialCodes[SERIAL_CODE_P].val = 100 * finger[fNum].readDir();
 	}
 
-	
+
 	// detect speed
 	if (serialCodes[SERIAL_CODE_S].newVal)
 	{
@@ -650,7 +651,7 @@ void serial_GripControl(int gNum)
 // set hand type (NONE, LEFT, RIGHT)
 void serial_SetHandType(int hType)
 {
-	const char *right_left[2] = { "Right","Left" };
+	const char* right_left[2] = { "Right","Left" };
 
 	if (hType == BLANK)
 	{
@@ -664,7 +665,7 @@ void serial_SetHandType(int hType)
 		storeSettings();
 
 		MYSERIAL_PRINT_PGM("Now configured as a ");
-		initFingerPins();	
+		initFingerPins();
 		MYSERIAL_PRINT(right_left[settings.handType - 1]);
 		MYSERIAL_PRINTLN_PGM(" Hand");
 	}
@@ -672,13 +673,13 @@ void serial_SetHandType(int hType)
 	{
 		MYSERIAL_PRINTLN_PGM("Hand Type Not Valid");
 	}
-	
+
 }
 
 // muscle control mode
 void serial_MuscleControlMode(int mMode)
 {
-	const char *disabled_enabled[2] = { "DISABLED","ENABLED" };
+	const char* disabled_enabled[2] = { "DISABLED","ENABLED" };
 
 	MYSERIAL_PRINT_PGM("Muscle mode - ");
 
@@ -724,7 +725,7 @@ void serial_HoldTime(int hTime)
 		settings.emg.holdTime = (uint16_t)hTime;
 		storeSettings();
 	}
-	
+
 	MYSERIAL_PRINT_PGM("Hold time - ");
 	MYSERIAL_PRINT(settings.emg.holdTime);
 	MYSERIAL_PRINTLN_PGM("ms");
@@ -738,7 +739,7 @@ void serial_PeakThresh(int pThresh)
 		settings.emg.peakThresh = (uint16_t)pThresh;
 		storeSettings();
 	}
-	
+
 	MYSERIAL_PRINT_PGM("Peak threshold - ");
 	MYSERIAL_PRINTLN(settings.emg.peakThresh);
 }
@@ -770,8 +771,8 @@ void serial_ExitMode(int val)
 // system diagnostics
 void serial_systemDiagnostics(int val)
 {
-	const char *disabled_enabled[2] = { "DISABLED","ENABLED" };
-	const char *modeNames[NUM_MODES] = { "None","Demo","EMG - Simple","EMG - Proportional", "CSV" };
+	const char* disabled_enabled[2] = { "DISABLED","ENABLED" };
+	const char* modeNames[NUM_MODES] = { "None","Demo","EMG - Simple","EMG - Proportional", "CSV" };
 
 	MYSERIAL_PRINTLN_PGM("     System Diagnostics");
 	for (uint8_t i = 0; i < 28; i++)
@@ -781,7 +782,7 @@ void serial_systemDiagnostics(int val)
 	MYSERIAL_PRINT_PGM("\n\n");
 
 	// print FW type/version, hand type and whether motors are enabled
-	printDeviceInfo();	
+	printDeviceInfo();
 
 	// print total 'on-time'
 	MYSERIAL_PRINT_PGM("OnTime:\t");
@@ -812,7 +813,7 @@ void serial_systemDiagnostics(int val)
 void serial_SerialInstructions(int val)
 {
 	printDeviceInfo();					// print board & firmware info
-	
+
 	// TITLE
 	MYSERIAL_PRINT_PGM("\n");
 	MYSERIAL_PRINTLN_PGM("         Open Bionics Serial Commands - Beetroot");

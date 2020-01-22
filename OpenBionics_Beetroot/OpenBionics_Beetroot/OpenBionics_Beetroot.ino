@@ -45,6 +45,9 @@
 #define Serial SERIAL_PORT_USBVIRTUAL
 #endif
 
+long CheckBTTime = 5000;	// time in ms between checks of BT...
+long previousMillis = 0;    // will store last time BT was checked...
+
 void setup()
 {
 	deviceSetup();							// initialise the board
@@ -59,6 +62,7 @@ void setup()
 
 void loop()
 {
+
 #if defined(USE_ROS)
 	ros_run();
 #endif
@@ -67,6 +71,14 @@ void loop()
 	// monitor system temp
 	systemMonitor();
 #endif
+
+	// check to see if it's time to try and setup the BT connection again...
+	unsigned long currentMillis = millis();
+	if (!BTEnabled && (currentMillis - previousMillis > CheckBTTime))
+	{
+		previousMillis = currentMillis;
+		setupBT();
+	}
 
 	// if demo mode is enabled, run demo mode
 	if (DEMO.enabled())
