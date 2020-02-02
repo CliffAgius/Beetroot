@@ -1,4 +1,22 @@
-# Open Bionics - Beetroot
+# Handy Electronics
+
+This repository is a fork of the OpenBionics Beetroot as you will see above, but I have taken it further by adapting the code to run on the [Adafruit Feather M0 Bluefruit](https://learn.adafruit.com/adafruit-feather-m0-bluefruit-le/overview) and using the [Adafruit DC Feather wing](https://learn.adafruit.com/adafruit-stepper-dc-motor-featherwing).
+
+This means that as OpenBionics have now closed the Open Source project while they aim for NICE approval and to sell the Hero Arm around the world you will no longer be able to purchase the OpenBionics Chestnut board.  But thats Ok as I have within the Electronics folder a list of the parts required and the circuit diagrams to build the control for your Handy Project.
+
+The parts are all widely available from either Adafruit direct (Links above!) your local electronics supplier or even Amazon online store.
+
+I have left the Instructions below for setting up the Arduino IDE to connect to the board as most of the instructions for getting the correct files in place still apply.
+
+However if you wish to stay in VisualStudio rather than the very poor Arduino IDE or even VSCode then I hightly recommend the VisualMicro extention which is free from https://www.visualmicro.com/
+
+Take a look around and let me know via Issues or directly via twitter @CliffordAgius if you have any suggestions or questions.
+
+
+
+# OLD INSTRUCTIONS
+
+### Open Bionics - Beetroot 
 
 Included in this repository;
 
@@ -17,12 +35,12 @@ Included in this repository;
 * Within Arduino, go to **Sketch -> Include Library -> Manage Libraries...**
 * Search for **FingerLib**
 * Install **FingerLib**
-### 4. Install Chesnut board
+### 4. Install Chesnut board - WE ARE NOW USING THE ADAFRUIT FEATHER BOARD
 * Within Arduino, go to **File -> Preferences**
 * Copy the following URL https://open-bionics.github.io/package_openbionics_index.json
 * Paste URL in **Additional Boards Manager URLs** box
 * Open **Tools -> Board -> Boards Manager..**
-* Search for **Open Bionics**
+* Search for **Open Bionics** - SEARCH FOR **Adafruit SAMD Boards**
 * Install the latest verison of the **Open Bionics Boards**
 * Select **Tools -> Board -> Chestnut** to select the Chestnut PCB 
 ### 5. Upload to the Brunel hand
