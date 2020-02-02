@@ -324,7 +324,7 @@ void readMuscleADC(void)
 {
 	int senseArray[NUM_EMG_CHANNELS];
 	char CSVStr[64];
-	int loops = 20;
+	int loops = 40;
 
 	while (loops > 0)
 	{
@@ -350,6 +350,7 @@ void readMuscleADC(void)
 		delay(100);
 		loops--;
 	}
+	MYSERIAL_PRINTLN("***");
 }
 
 void releaseMtrs(void)

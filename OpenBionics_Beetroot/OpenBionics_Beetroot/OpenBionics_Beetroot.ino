@@ -73,12 +73,12 @@ void loop()
 #endif
 
 	// check to see if it's time to try and setup the BT connection again...
-	unsigned long currentMillis = millis();
+	/*unsigned long currentMillis = millis();
 	if (!BTEnabled && (currentMillis - previousMillis > CheckBTTime))
 	{
 		previousMillis = currentMillis;
 		setupBT();
-	}
+	}*/
 
 	// if demo mode is enabled, run demo mode
 	if (DEMO.enabled())
@@ -103,6 +103,6 @@ void loop()
 	pollSerial();
 
 #if defined(ADAFRUIT_FEATHER_M0)
-	//Watchdog.reset();
+	Watchdog.reset();
 #endif
 }
