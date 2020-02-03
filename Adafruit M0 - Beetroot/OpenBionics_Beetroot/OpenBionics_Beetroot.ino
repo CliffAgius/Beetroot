@@ -14,8 +14,13 @@
  */
 
 
-
-
+#include <Adafruit_BluefruitLE_UART.h>
+#include <Adafruit_BluefruitLE_SPI.h>
+#include <Adafruit_BLEMIDI.h>
+#include <Adafruit_BLEGatt.h>
+#include <Adafruit_BLEEddystone.h>
+#include <Adafruit_BLEBattery.h>
+#include <Adafruit_BLE.h>
 #include <Adafruit_SleepyDog.h>
 #include <SPI.h>
 
