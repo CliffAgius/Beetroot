@@ -119,8 +119,8 @@ const char* default_GripNames[NUM_GRIPS + 1] = {
 };
 
 
-#define OPPOSE_PINCH	 620 // 565 // 730	// 620 
-#define OPPOSE_TRIPOD	 720 // 685 // 890	// 720 
+#define OPPOSE_PINCH	 730 //620 // 565 // 730	// 620 
+#define OPPOSE_TRIPOD	 890 //720 // 685 // 890	// 720 
 
 
 
@@ -160,7 +160,7 @@ uint16_t default_GripPos[NUM_GRIPS][NUM_GRIP_STEPS][NUM_FINGERS + 1] = {
 		{ BLANK,	BLANK,			BLANK,			BLANK,			BLANK },		//MIDPOINTB
 		{ BLANK,	BLANK,			BLANK,			BLANK,			BLANK },		//MIDPOINTC
 		{ BLANK,	BLANK,			BLANK,			BLANK,			BLANK },		//MIDPOINTD
-		{ 100,		OPPOSE_PINCH,	850,			FULLY_OPEN,		FULLY_OPEN },	//CLOSED
+		{ 100,		OPPOSE_TRIPOD,	850,			FULLY_OPEN,		FULLY_OPEN },	//CLOSED
 	},
 
 	{	// TRIPOD

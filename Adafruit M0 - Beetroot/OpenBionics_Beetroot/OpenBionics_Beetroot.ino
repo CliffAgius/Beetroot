@@ -14,6 +14,8 @@
  */
 
 
+#include <FlashStorage.h>
+#include <Adafruit_MotorShield.h>
 #include <Adafruit_BluefruitLE_UART.h>
 #include <Adafruit_BluefruitLE_SPI.h>
 #include <Adafruit_BLEMIDI.h>
