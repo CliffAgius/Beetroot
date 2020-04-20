@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding ="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <PropertyGroup Label="Globals" >
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{1e92a2f5-8039-4812-a5c1-8a43377072bc}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Adafruit_ATParser.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)Adafruit_BLE.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)Adafruit_BLEBattery.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)Adafruit_BLEEddystone.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)Adafruit_BLEGatt.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)Adafruit_BLEMIDI.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)Adafruit_BluefruitLE_SPI.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)Adafruit_BluefruitLE_UART.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Adafruit_ATParser.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)Adafruit_BLE.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)Adafruit_BLEBattery.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)Adafruit_BLEEddystone.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)Adafruit_BLEGatt.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)Adafruit_BLEMIDI.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)Adafruit_BluefruitLE_SPI.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)Adafruit_BluefruitLE_UART.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="$(MSBuildThisFileDirectory)keywords.txt" />
+<Text Include="$(MSBuildThisFileDirectory)library.properties" />
+<Text Include="$(MSBuildThisFileDirectory)vs-readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)changelog.md" />
+<None Include="$(MSBuildThisFileDirectory)changelog_firmware.md" />
+<None Include="$(MSBuildThisFileDirectory)README.md" />
+<None Include="$(MSBuildThisFileDirectory)SDEP.md" />
+  </ItemGroup>
+</Project>

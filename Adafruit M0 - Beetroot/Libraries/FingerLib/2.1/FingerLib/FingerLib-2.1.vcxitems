@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding ="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <PropertyGroup Label="Globals" >
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{e6077ebd-ee75-4917-9fe1-09aa8f4075db}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)src\FingerLib.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)src\current_sense\samd_CurrentSense.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)src\pid\pid_controller.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)src\timers\avr_FingerTimer.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)src\timers\samd_FingerTimer.cpp" />
+<ClCompile Include="$(MSBuildThisFileDirectory)src\timers\timer_and_delay.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)src\FingerLib.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)src\buffer\CircleBuff.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)src\current_sense\samd_CurrentSense.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)src\pid\pid_controller.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)src\timers\avr_FingerTimer.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)src\timers\samd_FingerTimer.h" />
+<ClInclude Include="$(MSBuildThisFileDirectory)src\timers\timer_and_delay.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="$(MSBuildThisFileDirectory)keywords.txt" />
+<Text Include="$(MSBuildThisFileDirectory)library.properties" />
+<Text Include="$(MSBuildThisFileDirectory)vs-readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)README.md" />
+  </ItemGroup>
+</Project>
