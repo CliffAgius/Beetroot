@@ -10,7 +10,7 @@
  */
 
 #include "FingerLib.h"
-#include "../../Adafruit_Motor_Shield_V2_Library/Adafruit_MotorShield.h"
+#include "Adafruit_MotorShield.h"
 
 
 uint8_t _TotalFingerCount = 0;					// the total number of finger instances

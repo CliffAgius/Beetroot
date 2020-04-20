@@ -62,8 +62,8 @@ void deviceSetup(void)
 #ifdef ADAFRUIT_FEATHER_M0
 	setupBT();					//Setup the Bluetooth connection with the OnBoard BlueFruit LE Module...
 	MYSERIAL.println("Bluetooth Started...");
-	Watchdog.enable(5000);
-	int countdownMS = Watchdog.enable(4000);
+	//Watchdog.enable(10000);
+	int countdownMS = Watchdog.enable(16000);
 	MYSERIAL.print("Enabled the watchdog with max countdown of ");
 	MYSERIAL.print(countdownMS, DEC);
 	MYSERIAL.println(" milliseconds!");
